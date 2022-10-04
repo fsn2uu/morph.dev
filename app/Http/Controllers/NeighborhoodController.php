@@ -17,7 +17,7 @@ class NeighborhoodController extends Controller
      */
     public function index()
     {
-        return view('admin.neighborhoods.index', ['neighborhoods' => Neighborhood::where('company_id', Auth::user()->company_id)->paginate(20)]);
+        return view('admin.neighborhoods.index', ['neighborhoods' => Neighborhood::paginate(20)]);
     }
 
     /**
@@ -87,13 +87,13 @@ class NeighborhoodController extends Controller
      */
     public function update(Request $request, $slug)
     {
-        $neighborhood = Neighborhood::where('slug', $slug)->get();
-
         $request->merge(['slug' => Str::of($request->name)->slug('-')]);
 
-        $neighborhood->update($request->toArray());
+        $neighborhood = Neighborhood::where('slug', $slug)->firstOrFail();
 
-        return redirect()->route('admin.neighborhoods.show', $neighborhood);
+        $neighborhood->update($request->except(['_token', '_method', 'pics']));
+
+        return redirect()->route('admin.neighborhoods.show', $neighborhood->slug);
     }
 
     /**

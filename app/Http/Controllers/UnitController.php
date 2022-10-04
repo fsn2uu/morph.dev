@@ -16,7 +16,7 @@ class UnitController extends Controller
      */
     public function index()
     {
-        return view('admin.units.index', ['units' => Unit::where('company_id', Auth::user()->company_id)->paginate(20)]);
+        return view('admin.units.index', ['units' => Unit::paginate(20)]);
     }
 
     /**

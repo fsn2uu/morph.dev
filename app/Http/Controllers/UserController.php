@@ -18,7 +18,7 @@ class UserController extends Controller
     public function index()
     {
         return view('admin.users.index')
-            ->withUsers(User::where('company_id', Auth::user()->company_id)->paginate(20));
+            ->withUsers(User::paginate(20));
     }
 
     /**
@@ -105,7 +105,7 @@ class UserController extends Controller
         }
         
         $user = User::find($id);
-
+        
         $user->update($request->except(['_token', 'role']));
 
         $user->syncRoles($request->role);

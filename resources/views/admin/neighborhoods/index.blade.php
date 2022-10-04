@@ -30,10 +30,10 @@
                                     <td class="py-2 px-4">{{ ucwords($neighborhood->status) }}</td>
                                     <td class="py-2 px-4">{{ \Carbon\Carbon::parse($neighborhood->updated_at)->format('Y-m-d') }}</td>
                                     <td class="py-2 px-4">
-                                        <a href="{{ route('admin.neighborhoods.edit', $neighborhood) }}" class="text-white bg-blue-600 hover:bg-blue-800 p-2 pr-1 mr-2 rounded-sm">
+                                        <a href="{{ route('admin.neighborhoods.edit', $neighborhood->slug) }}" class="text-white bg-blue-600 hover:bg-blue-800 p-2 pr-1 mr-2 rounded-sm">
                                             <i class="fa-solid fa-pen-to-square"></i>
                                         </a>
-                                        <form action="{{ route('admin.neighborhoods.destroy', $neighborhood) }}" method="post" class="inline" onsubmit="return confirm('Are you sure?')">
+                                        <form action="{{ route('admin.neighborhoods.destroy', $neighborhood->slug) }}" method="post" class="inline" onsubmit="return confirm('Are you sure?')">
                                             @csrf
                                             @method('DELETE')
                                             <button class="text-white bg-red-600 hover:bg-red-800 px-2 py-1 rounded-sm">
