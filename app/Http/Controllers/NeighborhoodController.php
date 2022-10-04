@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Neighborhood;
 use Illuminate\Http\Request;
 use App\Http\Resources\NeighborhoodResource;
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Auth;
 
 class NeighborhoodController extends Controller
 {
@@ -38,10 +36,6 @@ class NeighborhoodController extends Controller
      */
     public function store(Request $request)
     {
-        $request->merge(['company_id' => Auth::user()->company_id]);
-
-        $request->merge(['slug' => Str::of($request->name)->slug('-')]);
-
         $neighborhood = Neighborhood::create($request->except(['_token', 'pics']));
 
         return redirect()->route('admin.neighborhoods.show', $neighborhood->slug);
@@ -68,14 +62,7 @@ class NeighborhoodController extends Controller
     {
         $neighborhood = Neighborhood::where('slug', $slug)->firstOrFail();
 
-        if($neighborhood->company_id == Auth::user()->company_id)
-        {
-            return view('admin.neighborhoods.edit', ['neighborhood' => $neighborhood]);
-        }
-        else
-        {
-            abort(401);
-        }
+        return view('admin.neighborhoods.edit', ['neighborhood' => $neighborhood]);
     }
 
     /**
@@ -87,8 +74,6 @@ class NeighborhoodController extends Controller
      */
     public function update(Request $request, $slug)
     {
-        $request->merge(['slug' => Str::of($request->name)->slug('-')]);
-
         $neighborhood = Neighborhood::where('slug', $slug)->firstOrFail();
 
         $neighborhood->update($request->except(['_token', '_method', 'pics']));

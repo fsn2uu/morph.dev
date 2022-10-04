@@ -10,6 +10,8 @@ use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Contracts\Auth\Access\Authorizable;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
 
 class User extends Authenticatable
 {
@@ -25,6 +27,20 @@ class User extends Authenticatable
     public function scopeMine($query)
     {
         return $query->where('company_id', Auth::user()->company_id);
+    }
+
+    public function setPasswordAttribute($password)
+    {
+        $this->attributes['password'] = Hash::make($password);
+    }
+
+    public static function boot()
+    {
+        parent::boot();
+
+        User::creating(function($model){
+            $model->company_id = Auth::user()->company_id;
+        });
     }
 
     /**

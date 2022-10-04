@@ -4,9 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
-use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
-use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -40,19 +38,9 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $request->merge(['company_id' => Auth::user()->company_id]);
-        $request->merge(['password' => Hash::make($request->password)]);
-        
-        $request = array_filter($request->toArray());
-        
-        unset($request['_token']);
+        $user = User::create($request->except(['_token', 'role']));
 
-        $role = $request['role'];
-        unset($request['role']);
-
-        $user = User::create($request);
-
-        $user->assignRole($role);
+        $user->assignRole($request->role);
 
         return redirect()->route('admin.users.edit', $user->id);
     }
@@ -78,16 +66,9 @@ class UserController extends Controller
     {
         $user = User::mine()->find($id);
 
-        if($user->company_id == Auth::user()->company_id)
-        {
-            return view('admin.users.edit')
-                ->withUser($user)
-                ->withRoles(Role::all());
-        }
-        else
-        {
-            abort(401);
-        }
+        return view('admin.users.edit')
+            ->withUser($user)
+            ->withRoles(Role::all());
     }
 
     /**
@@ -99,11 +80,6 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        if($request->has('password'))
-        {
-            $request->merge(['password' => Hash::make($request->password)]);
-        }
-        
         $user = User::mine()->find($id);
         
         $user->update($request->except(['_token', 'role']));
