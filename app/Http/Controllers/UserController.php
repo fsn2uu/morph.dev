@@ -18,7 +18,7 @@ class UserController extends Controller
     public function index()
     {
         return view('admin.users.index')
-            ->withUsers(User::paginate(20));
+            ->withUsers(User::mine()->paginate(20));
     }
 
     /**
@@ -76,7 +76,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $user = User::find($id);
+        $user = User::mine()->find($id);
 
         if($user->company_id == Auth::user()->company_id)
         {
@@ -104,7 +104,7 @@ class UserController extends Controller
             $request->merge(['password' => Hash::make($request->password)]);
         }
         
-        $user = User::find($id);
+        $user = User::mine()->find($id);
         
         $user->update($request->except(['_token', 'role']));
 
@@ -121,7 +121,7 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        User::find($id)->delete();
+        User::find($id)->mine()->delete();
 
         return redirect()->route('admin.users.index');
     }

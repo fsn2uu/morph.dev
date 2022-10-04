@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Contracts\Auth\Access\Authorizable;
 use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Support\Facades\Auth;
 
 class User extends Authenticatable
 {
@@ -20,6 +21,11 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $guarded = [];
+
+    public function scopeMine($query)
+    {
+        return $query->where('company_id', Auth::user()->company_id);
+    }
 
     /**
      * The attributes that should be hidden for serialization.
