@@ -9,7 +9,6 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Contracts\Auth\Access\Authorizable;
 use Spatie\Permission\Traits\HasRoles;
-use App\Scopes\MineScope;
 
 class User extends Authenticatable
 {
@@ -21,13 +20,6 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $guarded = [];
-
-    public static function boot()
-    {
-        parent::boot();
-
-        static::addGlobalScope(new MineScope);
-    }
 
     /**
      * The attributes that should be hidden for serialization.
