@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Scopes\MineScope;
+// use App\Scopes\MineScope;
 
 class Pic extends Model
 {
@@ -12,12 +12,12 @@ class Pic extends Model
 
     protected $guarded = [];
 
-    public static function boot()
-    {
-        parent::boot();
+    // public static function boot()
+    // {
+    //     parent::boot();
 
-        static::addGlobalScope(new MineScope);
-    }
+    //     static::addGlobalScope(new MineScope);
+    // }
 
     public function picable()
     {

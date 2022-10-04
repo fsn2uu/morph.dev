@@ -8,7 +8,7 @@
             <div class="items-end">
             </div>
         </div>
-        <form action="{{ route('admin.neighborhoods.store') }}" method="post">
+        <form action="{{ route('admin.neighborhoods.store') }}" method="post" enctype="multipart/form-data">
             @csrf
             <input type="hidden" name="company_id" value="1">
             <div>

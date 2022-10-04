@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Neighborhood;
 use Illuminate\Http\Request;
 use App\Http\Resources\NeighborhoodResource;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use App\Models\Pic;
 
 class NeighborhoodController extends Controller
 {
@@ -37,6 +40,30 @@ class NeighborhoodController extends Controller
     public function store(Request $request)
     {
         $neighborhood = Neighborhood::create($request->except(['_token', 'pics']));
+
+        if($request->has('pics'))
+        {
+            foreach($request->pics as $pic)
+            {
+                //$newFileName = time().'-'.$pic->getClientOriginalName().'.'.$pic->guessExtension;
+                $name = $pic->getClientOriginalName();
+                $extension = $pic->getClientOriginalExtension();
+
+                // $pic->move(public_path('images/neighborhoods/'.$neighborhood->id, $newFileName));
+                $path = Storage::putFileAs(
+                    'neighborhoods/'.$neighborhood->id, $pic, $name, 'public'
+                );
+
+                $picModel = new Pic([
+                    'company_id' => Auth::user()->company_id,
+                    'filename' => 'storage/'.$path,
+                    'order' => 0,
+                    'alt' => '',
+                    'title' => '',
+                ]);
+                $neighborhood->pics()->save($picModel);
+            }
+        }
 
         return redirect()->route('admin.neighborhoods.show', $neighborhood->slug);
     }
@@ -77,6 +104,30 @@ class NeighborhoodController extends Controller
         $neighborhood = Neighborhood::where('slug', $slug)->firstOrFail();
 
         $neighborhood->update($request->except(['_token', '_method', 'pics']));
+
+        if($request->has('pics'))
+        {
+            foreach($request->pics as $pic)
+            {
+                //$newFileName = time().'-'.$pic->getClientOriginalName().'.'.$pic->guessExtension;
+                $name = $pic->getClientOriginalName();
+                $extension = $pic->getClientOriginalExtension();
+
+                // $pic->move(public_path('images/neighborhoods/'.$neighborhood->id, $newFileName));
+                $path = Storage::putFileAs(
+                    'neighborhoods/'.$neighborhood->id, $pic, $name, 'public'
+                );
+
+                $picModel = new Pic([
+                    'company_id' => Auth::user()->company_id,
+                    'filename' => 'storage/'.$path,
+                    'order' => 0,
+                    'alt' => '',
+                    'title' => '',
+                ]);
+                $neighborhood->pics()->save($picModel);
+            }
+        }
 
         return redirect()->route('admin.neighborhoods.show', $neighborhood->slug);
     }

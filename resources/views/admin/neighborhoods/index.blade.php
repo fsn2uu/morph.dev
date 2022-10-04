@@ -24,7 +24,7 @@
                             @foreach ($neighborhoods as $neighborhood)
                                 <tr>
                                     <td class="py-2 px-4">
-                                        <a href="{{ route('admin.neighborhoods.show', $neighborhood) }}" class="underline text-blue-400">{{ $neighborhood->name }}</a>
+                                        <a href="{{ route('admin.neighborhoods.show', $neighborhood->slug) }}" class="underline text-blue-400">{{ $neighborhood->name }}</a>
                                     </td>
                                     <td class="py-2 px-4 text-center">{{ $neighborhood->units->count() }}</td>
                                     <td class="py-2 px-4">{{ ucwords($neighborhood->status) }}</td>

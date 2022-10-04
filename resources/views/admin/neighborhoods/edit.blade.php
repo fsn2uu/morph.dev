@@ -8,7 +8,7 @@
             <div class="items-end">
             </div>
         </div>
-        <form action="{{ route('admin.neighborhoods.update', $neighborhood->slug) }}" method="post">
+        <form action="{{ route('admin.neighborhoods.update', $neighborhood->slug) }}" method="post" enctype="multipart/form-data">
             @csrf
             @method('PATCH')
             <div>
@@ -37,6 +37,10 @@
                         hover:file:text-white
                         ">
             </div>
+            <p class="text-red-600">Need to get these on a separate tab and setup drag & drop ordering</p>
+            @foreach ($neighborhood->pics as $pic)
+                <img src="{{ asset($pic->filename) }}" alt="" style="max-width: 150px;">
+            @endforeach
             <input type="submit" value="Update" class="bg-gold mx-auto md:mx-0 hover:bg-darkGold text-black hover:text-white py-3 px-4 decoration-0 flex-nowrap">
         </form>
     </section>
