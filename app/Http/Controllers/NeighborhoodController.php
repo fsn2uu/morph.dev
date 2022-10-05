@@ -8,6 +8,8 @@ use App\Http\Resources\NeighborhoodResource;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Pic;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class NeighborhoodController extends Controller
 {
@@ -39,6 +41,21 @@ class NeighborhoodController extends Controller
      */
     public function store(Request $request)
     {
+        $validation = Validator::make($request->all(), [
+            'name' => [
+                'required',
+                Rule::unique('neighborhoods')->where(fn ($query) => $query->where('company_id', Auth::user()->company_id)),
+            ],
+            'description' => 'exclude_if:status,Draft|required',
+        ]);
+
+        if($validation->fails())
+        {
+            return back()->withErrors($validation->errors())->withInput();
+        }
+
+        //dd($validation);
+
         $neighborhood = Neighborhood::create($request->except(['_token', 'pics']));
 
         if($request->has('pics'))
@@ -101,6 +118,19 @@ class NeighborhoodController extends Controller
      */
     public function update(Request $request, $slug)
     {
+        $validation = Validator::make($request->all(), [
+            'name' => [
+                'required',
+                Rule::unique('neighborhoods')->ignore(Neighborhood::where('slug', $slug)->firstOrFail()->id)->where(fn ($query) => $query->where('company_id', Auth::user()->company_id)),
+            ],
+            'description' => 'exclude_if:status,Draft|required',
+        ]);
+
+        if($validation->fails())
+        {
+            return back()->withErrors($validation->errors())->withInput();
+        }
+
         $neighborhood = Neighborhood::where('slug', $slug)->firstOrFail();
 
         $neighborhood->update($request->except(['_token', '_method', 'pics']));

@@ -90,10 +90,16 @@
                     <div>
                         <label for="name" class="block">Name</label>
                         <input type="text" name="name" id="name" value="{{ $neighborhood->name }}" class="shadow appearance-none border border-[#ccc] mb-2 rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline">
+                        @error('name')
+                            <span class="text-red-400">{{ $message }}</span>
+                        @enderror
                     </div>
                     <div>
                         <label for="description" class="block">Description</label>
                         <textarea name="description" id="description" class="shadow appearance-none border border-[#ccc] mb-2 rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline">{{ $neighborhood->description }}</textarea>
+                        @error('description')
+                            <span class="text-red-400">{{ $message }}</span>
+                        @enderror
                     </div>
                     <div>
                         <label for="status" class="block">Status</label>
