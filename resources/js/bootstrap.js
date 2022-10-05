@@ -1,6 +1,8 @@
 import _ from 'lodash';
 window._ = _;
 
+import 'tw-elements';
+
 
 //import 'bootstrap';
 
