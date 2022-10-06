@@ -108,7 +108,9 @@
                             <option {{ $neighborhood->status == 'Draft' ? 'selected' : '' }}>Draft</option>
                         </select>
                     </div>
-                    <div>
+                </div>
+                <div class="tab-pane fade" id="tabs-photos" role="tabpanel" aria-labelledby="tabs-photos-tab">
+                    <div class="mb-5">
                         <label for="pics" class="block capitalize">Photos</label>
                         <input type="file" name="pics[]" id="pics" multiple="multiple" class="block w-full text-sm
                                 file:mr-5 file:py-2 file:px-6
@@ -119,11 +121,27 @@
                                 hover:file:text-white
                                 ">
                     </div>
-                </div>
-                <div class="tab-pane fade" id="tabs-photos" role="tabpanel" aria-labelledby="tabs-photos-tab">
                     <p class="text-red-600">Need to get these on a separate tab and setup drag & drop ordering</p>
+                    <label for="" class="block capitalize">Existing Photos</label>
                     @foreach ($neighborhood->pics as $pic)
-                    <img src="{{ asset($pic->filename) }}" alt="" style="max-width: 150px;">
+                        <div class="flex flex-row mb-3">
+                            <img src="{{ asset($pic->filename) }}" alt="" style="max-width: 150px;">
+                            <div class="md:ml-5">
+                                <label for="existing-pics-{{ $pic->id }}-order">Order</label>
+                                <input type="text" id="existing-pics-{{ $pic->id }}-order" name="existing-pics[{{ $pic->id }}][order]" class="shadow appearance-one border border-ccc mb-2 rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline">
+                            </div>
+                            <div class="md:ml-5">
+                                <label for="existing-pics-{{ $pic->id }}-alt">Alt Text</label>
+                                <input type="text" id="existing-pics-{{ $pic->id }}-alt" name="existing-pics[{{ $pic->id }}][alt]" class="shadow appearance-one border border-ccc mb-2 rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline">
+                            </div>
+                            <div class="md:ml-5">
+                                <label for="existing-pics-{{ $pic->id }}-description">Description</label>
+                                <input type="text" id="existing-pics-{{ $pic->id }}-description" name="existing-pics[{{ $pic->id }}][description]" class="shadow appearance-one border border-ccc mb-2 rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline">
+                            </div>
+                            <div class="md:ml-5">
+                                [X]
+                            </div>
+                        </div>
                     @endforeach
                 </div>
                 {{-- <div class="tab-pane fade" id="tabs-messages" role="tabpanel" aria-labelledby="tabs-messages-tab">
