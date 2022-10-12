@@ -10232,6 +10232,9 @@ select {
 .mt-6 {
   margin-top: 1.5rem;
 }
+.mt-5 {
+  margin-top: 1.25rem;
+}
 .ml-2 {
   margin-left: 0.5rem;
 }
@@ -10244,11 +10247,11 @@ select {
 .mr-2 {
   margin-right: 0.5rem;
 }
-.mt-5 {
-  margin-top: 1.25rem;
-}
 .mt-3 {
   margin-top: 0.75rem;
+}
+.mb-3 {
+  margin-bottom: 0.75rem;
 }
 .ml-1 {
   margin-left: 0.25rem;
@@ -10270,12 +10273,6 @@ select {
 }
 .-mr-2 {
   margin-right: -0.5rem;
-}
-.ml-5 {
-  margin-left: 1.25rem;
-}
-.mb-3 {
-  margin-bottom: 0.75rem;
 }
 .block {
   display: block;
@@ -10469,9 +10466,6 @@ select {
 .gap-4 {
   gap: 1rem;
 }
-.gap-5 {
-  gap: 1.25rem;
-}
 .space-x-6 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-x-reverse: 0;
   margin-right: calc(1.5rem * var(--tw-space-x-reverse));
@@ -10491,11 +10485,6 @@ select {
   --tw-space-y-reverse: 0;
   margin-top: calc(0.25rem * calc(1 - var(--tw-space-y-reverse)));
   margin-bottom: calc(0.25rem * var(--tw-space-y-reverse));
-}
-.space-x-5 > :not([hidden]) ~ :not([hidden]) {
-  --tw-space-x-reverse: 0;
-  margin-right: calc(1.25rem * var(--tw-space-x-reverse));
-  margin-left: calc(1.25rem * calc(1 - var(--tw-space-x-reverse)));
 }
 .self-end {
   align-self: flex-end;
@@ -10631,6 +10620,10 @@ select {
 .bg-red-600 {
   --tw-bg-opacity: 1;
   background-color: rgb(229 62 62 / var(--tw-bg-opacity));
+}
+.bg-green-600 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(56 161 105 / var(--tw-bg-opacity));
 }
 .bg-hero {
   background-image: url('https://morph.dev:8890/assets/pexels-ruvim-miksanskiy-2335167.jpeg');
@@ -11136,6 +11129,11 @@ select {
   .hover\:bg-gray-100:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(247 250 252 / var(--tw-bg-opacity));
+}
+  
+  .hover\:bg-green-800:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(39 103 73 / var(--tw-bg-opacity));
 }
   
   .hover\:text-gray-500:hover {
