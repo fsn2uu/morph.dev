@@ -9,7 +9,7 @@
         <div class="hidden md:flex space-x-6 items-baseline text-white">
             <a href="{{ route('admin.neighborhoods.index') }}" class="nav">Neighborhoods</a>
             <a href="{{ route('admin.units.index') }}" class="nav">Units</a>
-            <a href="#" class="nav">Reservations</a>
+            <a href="{{ route('admin.reservations.index') }}" class="nav">Reservations</a>
             <a href="{{ route('admin.travelers.index') }}" class="nav">Travelers</a>
             <a href="#" class="nav">Specials</a>
             <a href="#" class="nav">Tasks</a>
@@ -62,7 +62,7 @@
         <div id="menu" class="absolute flex-col items-center hidden self-end py-8 mt-10 space-y-6 font-bold bg-white sm:w-auto sm:self-center left-6 right-6 drop-shadow-md z-30">
             <a href="{{ route('admin.neighborhoods.index') }}">Neighborhoods</a>
             <a href="{{ route('admin.units.index') }}">Units</a>
-            <a href="#">Reservations</a>
+            <a href="{{ route('admin.reservations.index') }}">Reservations</a>
             <a href="{{ route('admin.travelers.index') }}">Travelers</a>
             <a href="#">Specials</a>
             <a href="#">Tasks</a>
