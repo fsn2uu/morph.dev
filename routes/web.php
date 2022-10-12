@@ -5,6 +5,7 @@ use App\Http\Controllers\NeighborhoodController;
 use App\Http\Controllers\UnitController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\TravelerController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -47,6 +48,7 @@ Route::middleware(['auth'])->group(function(){
             Route::resource('neighborhoods', NeighborhoodController::class);
             Route::resource('units', UnitController::class);
             Route::resource('users', UserController::class);
+            Route::resource('travelers', TravelerController::class);
             Route::prefix('settings')->group(function(){
                 Route::controller(CompanyController::class)->group(function () {
                     Route::get('company', 'edit')->name('settings.company');

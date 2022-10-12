@@ -23,4 +23,9 @@ class Company extends Model
     {
         return $this->morphMany(Pic::class, 'picable');
     }
+
+    public function travelers()
+    {
+        return $this->belongsToMany(Traveler::class)->orderBy('last');
+    }
 }

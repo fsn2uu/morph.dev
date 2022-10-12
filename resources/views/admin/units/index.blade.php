@@ -24,13 +24,13 @@
                             @foreach ($units as $unit)
                                 <tr>
                                     <td class="py-2 px-4">
-                                        <a href="{{ route('admin.units.show', $unit) }}" class="underline text-blue-400">{{ $unit->name }}</a>
+                                        <a href="{{ route('admin.units.show', $unit->slug) }}" class="underline text-blue-400">{{ $unit->name }}</a>
                                     </td>
                                     <td class="py-2 px-4 text-center">{{ $unit->neighborhood->name }}</td>
                                     <td class="py-2 px-4">{{ ucwords($unit->status) }}</td>
                                     <td class="py-2 px-4">{{ \Carbon\Carbon::parse($unit->updated_at)->format('Y-m-d') }}</td>
                                     <td class="py-2 px-4">
-                                        <a href="{{ route('admin.units.edit', $unit) }}" class="text-white bg-blue-600 hover:bg-blue-800 p-2 pr-1 mr-2 rounded-sm">
+                                        <a href="{{ route('admin.units.edit', $unit->slug) }}" class="text-white bg-blue-600 hover:bg-blue-800 p-2 pr-1 mr-2 rounded-sm">
                                             <i class="fa-solid fa-pen-to-square"></i>
                                         </a>
                                         <form action="{{ route('admin.units.destroy', $unit) }}" method="post" class="inline" onsubmit="return confirm('Are you sure?')">
