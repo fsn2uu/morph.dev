@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Traveler;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class TravelerController extends Controller
 {
@@ -38,6 +40,26 @@ class TravelerController extends Controller
      */
     public function store(Request $request)
     {
+        $validation = Validator::make($request->all(), [
+            'first' => 'required',
+            'last' => 'required',
+            'email' => [
+                'required',
+                'email',
+                //Rule::unique('travelers')->where(fn ($query) => $query->where('company_id', Auth::user()->company_id)),
+            ],
+            'phone' => 'required',
+            'address' => 'required',
+            'city' => 'required',
+            'state' => 'required',
+            'zip' => 'required',
+        ]);
+
+        if($validation->fails())
+        {
+            return back()->withErrors($validation->errors())->withInput();
+        }
+
         $traveler = Traveler::create($request->except(['_token', '_method']));
 
         return redirect()->route('admin.travelers.edit', $traveler);
@@ -76,6 +98,26 @@ class TravelerController extends Controller
      */
     public function update(Request $request, Traveler $traveler)
     {
+        $validation = Validator::make($request->all(), [
+            'first' => 'required',
+            'last' => 'required',
+            'email' => [
+                'required',
+                'email',
+                //Rule::unique('travelers')->where(fn ($query) => $query->where('company_id', Auth::user()->company_id)),
+            ],
+            'phone' => 'required',
+            'address' => 'required',
+            'city' => 'required',
+            'state' => 'required',
+            'zip' => 'required',
+        ]);
+
+        if($validation->fails())
+        {
+            return back()->withErrors($validation->errors())->withInput();
+        }
+
         $traveler->update($request->except(['_token', '_method']));
 
         return redirect()->route('admin.travelers.show', $traveler);
