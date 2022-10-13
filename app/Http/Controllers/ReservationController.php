@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Reservation;
+use App\Models\Traveler;
+use App\Models\Unit;
 use Illuminate\Http\Request;
 
 class ReservationController extends Controller
@@ -27,7 +29,12 @@ class ReservationController extends Controller
      */
     public function create()
     {
-        return view('admin.reservations.create');
+        $units = Unit::all();
+        $travelers = Traveler::all();
+
+        return view('admin.reservations.create')
+            ->withUnits($units)
+            ->withTravelers($travelers);
     }
 
     /**

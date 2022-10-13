@@ -13,7 +13,7 @@
             @csrf
 
             @php
-                $fillable = [
+                $fields = [
                     'first' => ['type' => 'text', 'required' => true],
                     'last' => ['type' => 'text', 'required' => true],
                     'email' => ['type' => 'text', 'required' => true],
@@ -27,7 +27,7 @@
                 ];
             @endphp
 
-            @foreach ($fillable as $k => $v)
+            @foreach ($fields as $k => $v)
                 <label for="{{ $k }}"  class="block">{{ ucwords(str_replace('_', ' ', $k)) }}</label>
                 @if ($v['type'] == 'text')
                     <input type="text" name="{{$k}}" id="{{$k}}" value="{{ old($k) }}" {{ $v['required'] ? 'required' : '' }} class="shadow appearance-none border border-[#ccc] mb-2 rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline" />
