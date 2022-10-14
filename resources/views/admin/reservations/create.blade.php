@@ -35,14 +35,16 @@
                 @endforeach
             </select>
 
-            <label for="traveler_id"  class="block">Traveler</label>
-            <select name="traveler_id" id="traveler_id" class="shadow appearance-none border border-[#ccc] mb-2 rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline">
-                <option value="">Choose a Traveler</option>
-                @foreach ($travelers as $traveler)
-                    <option value="{{ $traveler->id }}">{{ $traveler->last }}, {{ $traveler->first }}</option>
-                @endforeach
-                <option value="NEW">Create a New Traveler</option>
-            </select>
+            <div id="traveler_id_wrapper">
+                <label for="traveler_id"  class="block">Traveler</label>
+                <select name="traveler_id" id="traveler_id" class="shadow appearance-none border border-[#ccc] mb-2 rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline">
+                    <option value="">Choose a Traveler</option>
+                    @foreach ($travelers as $traveler)
+                        <option value="{{ $traveler->id }}">{{ $traveler->last }}, {{ $traveler->first }}</option>
+                    @endforeach
+                    <option value="NEW">Create a New Traveler</option>
+                </select>
+            </div>
 
             <label for="type"  class="block">Type of Reservation</label>
             <select name="type" id="type" class="shadow appearance-none border border-[#ccc] mb-2 rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline">
@@ -69,3 +71,52 @@
     </section>
 
 @endsection
+
+@push('scripts')
+
+    <script>
+        const travelerType = document.getElementById('traveler_id')
+        const wrapper = document.getElementById('traveler_id_wrapper')
+
+        travelerType.addEventListener('change', function(){
+            if(travelerType.value == 'NEW')
+            {
+                const travelerContainer = document.createElement("div", {id: "traveler_container"})
+                const fields = [
+                    'first',
+                    'last',
+                    'email',
+                    'phone',
+                    'address',
+                    'city',
+                    'state',
+                    'zip'
+                ]
+
+                fields.forEach(k => {
+                    let cont = document.createElement("div")
+                    let label = document.createElement("label")
+                    let input = document.createElement("input")
+
+                    label.setAttribute('for', k)
+                    label.innerHTML = "traveler " + k
+                    label.setAttribute('class', 'capitalize block')
+
+                    input.setAttribute('type', 'text')
+                    input.setAttribute('name', k)
+                    input.setAttribute('id', k)
+                    input.setAttribute('class', 'shadow appearance-none border border-[#ccc] mb-2 rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline')
+                    
+                    cont.appendChild(label)
+                    cont.appendChild(input)
+                    travelerContainer.appendChild(cont)
+                });
+
+                wrapper.after(travelerContainer)
+
+                wrapper.remove()
+            }
+        })
+    </script>
+    
+@endpush
