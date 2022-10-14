@@ -8,4 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class Reservation extends Model
 {
     use HasFactory;
+    
+    protected $guarded = [];
+
+    public function unit()
+    {
+        return $this->belongsTo(Unit::class);
+    }
+
+    public function traveler()
+    {
+        return $this->belongsTo(Traveler::class);
+    }
 }

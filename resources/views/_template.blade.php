@@ -6,6 +6,7 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">
         <title>Document</title>
+        @stack('head')
     </head>
     <body class="bg-[#f2f2f2]" id="app">
         <header class="bg-charcoal">

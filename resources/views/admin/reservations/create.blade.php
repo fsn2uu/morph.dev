@@ -43,11 +43,11 @@
             <div class="grid grid-cols-1 md:grid-cols-2">
                 <div class="md:pr-2">
                     <label for="start_date" class="block">Start Date</label>
-                    <input type="text" name="start_date" id="start_date" class="shadow appearance-none border border-[#ccc] mb-2 rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline">
+                    <input type="text" name="start_date" id="start_date" class="date shadow appearance-none border border-[#ccc] mb-2 rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline">
                 </div>
                 <div class="md:pl-2">
                     <label for="end_date" class="block">End Date</label>
-                    <input type="text" name="end_date" id="end_date" class="shadow appearance-none border border-[#ccc] mb-2 rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline">
+                    <input type="text" name="end_date" id="end_date" class="date shadow appearance-none border border-[#ccc] mb-2 rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline">
                 </div>
             </div>
 
@@ -56,6 +56,22 @@
     </section>
 
 @endsection
+
+@push('head')
+
+    {{-- need to replace this crap with a Vue component --}}
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
+
+    <script>
+        $(function(){
+            $('.date').datepicker()
+        })
+    </script>
+    
+@endpush
 
 @push('scripts')
 

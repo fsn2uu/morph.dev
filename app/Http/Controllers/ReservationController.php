@@ -6,6 +6,7 @@ use App\Models\Reservation;
 use App\Models\Traveler;
 use App\Models\Unit;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ReservationController extends Controller
 {
@@ -47,7 +48,7 @@ class ReservationController extends Controller
     {
         if($request->has('traveler'))
         {
-            $traveler = Traveler::updateOrCreate(
+            Traveler::updateOrCreate(
                 [
                     'email' => $request->traveler['email'],
                 ],
@@ -61,9 +62,20 @@ class ReservationController extends Controller
                     'zip' => $request->traveler['zip'],
                 ]
             );
+            
+            $traveler = Traveler::where('email', $request->traveler['email'])->first();
 
-            $request->merge(['traveler_id', $traveler->id]);
+            $request->merge(['traveler_id' => $traveler->id]);
+            $request->request->remove('traveler');
         }
+
+        $new_start_date = \Carbon\Carbon::parse($request->start_date)->format('Y-m-d');
+        $new_end_date = \Carbon\Carbon::parse($request->end_date)->format('Y-m-d');
+        $request->merge(['start_date' => $new_start_date, 'end_date' => $new_end_date]);
+
+        $request->merge(['company_id' => Auth::user()->company_id]);
+
+        $request->merge(['status' => 'pending payment']);
 
         $reservation = Reservation::create($request->except(['_token', '_method', 'traveler']));
 
