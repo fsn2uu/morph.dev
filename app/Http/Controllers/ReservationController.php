@@ -45,7 +45,27 @@ class ReservationController extends Controller
      */
     public function store(Request $request)
     {
-        $reservation = Reservation::create($request->except(['_token', '_method']));
+        if($request->has('traveler'))
+        {
+            $traveler = Traveler::updateOrCreate(
+                [
+                    'email' => $request->traveler['email'],
+                ],
+                [
+                    'first' => $request->traveler['first'],
+                    'last' => $request->traveler['last'],
+                    'phone' => $request->traveler['phone'],
+                    'address' => $request->traveler['address'],
+                    'city' => $request->traveler['city'],
+                    'state' => $request->traveler['state'],
+                    'zip' => $request->traveler['zip'],
+                ]
+            );
+
+            $request->merge(['traveler_id', $traveler->id]);
+        }
+
+        $reservation = Reservation::create($request->except(['_token', '_method', 'traveler']));
 
         return redirect()->route('admin.reservations.show', $reservation);
     }
