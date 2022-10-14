@@ -45,6 +45,23 @@
                 " id="tabs-photos-tab" data-bs-toggle="pill" data-bs-target="#tabs-photos" role="tab"
                 aria-controls="tabs-photos" aria-selected="false">Photos</a>
             </li>
+            <li class="nav-item" role="presentation">
+                <a href="#units-photos" class="
+                nav-link
+                block
+                font-medium
+                text-xs
+                leading-tight
+                uppercase
+                border-x-0 border-t-0 border-b-2 border-transparent
+                px-6
+                py-3
+                my-2
+                hover:border-transparent hover:bg-gray-100
+                focus:border-transparent
+                " id="tabs-units-tab" data-bs-toggle="pill" data-bs-target="#tabs-units" role="tab"
+                aria-controls="tabs-units" aria-selected="false">Units</a>
+            </li>
             {{-- <li class="nav-item" role="presentation">
                 <a href="#tabs-messages" class="
                 nav-link
@@ -127,16 +144,16 @@
                         <div class="flex flex-row mb-3">
                             <img src="{{ asset($pic->filename) }}" alt="" style="max-width: 150px;">
                             <div class="md:ml-5">
-                                <label for="existing-pics-{{ $pic->id }}-order">Order</label>
-                                <input type="text" id="existing-pics-{{ $pic->id }}-order" name="existing-pics[{{ $pic->id }}][order]" class="shadow appearance-one border border-ccc mb-2 rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline">
+                                <label for="existing_pics_{{ $pic->id }}_order">Order</label>
+                                <input type="text" id="existing_pics_{{ $pic->id }}_order" name="existing_pics[{{ $pic->id }}][order]" value="{{$pic->order}}" class="shadow appearance-one border border-ccc mb-2 rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline">
                             </div>
                             <div class="md:ml-5">
-                                <label for="existing-pics-{{ $pic->id }}-alt">Alt Text</label>
-                                <input type="text" id="existing-pics-{{ $pic->id }}-alt" name="existing-pics[{{ $pic->id }}][alt]" class="shadow appearance-one border border-ccc mb-2 rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline">
+                                <label for="existing_pics_{{ $pic->id }}_alt">Alt Text</label>
+                                <input type="text" id="existing_pics_{{ $pic->id }}_alt" name="existing_pics[{{ $pic->id }}][alt]" value="{{$pic->alt}}" class="shadow appearance-one border border-ccc mb-2 rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline">
                             </div>
                             <div class="md:ml-5">
-                                <label for="existing-pics-{{ $pic->id }}-description">Description</label>
-                                <input type="text" id="existing-pics-{{ $pic->id }}-description" name="existing-pics[{{ $pic->id }}][description]" class="shadow appearance-one border border-ccc mb-2 rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline">
+                                <label for="existing_pics_{{ $pic->id }}_description">Description</label>
+                                <input type="text" id="existing_pics_{{ $pic->id }}_description" name="existing_pics[{{ $pic->id }}][description]" value="{{$pic->description}}" class="shadow appearance-one border border-ccc mb-2 rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline">
                             </div>
                             <div class="md:ml-5">
                                 [X]
@@ -144,10 +161,41 @@
                         </div>
                     @endforeach
                 </div>
-                {{-- <div class="tab-pane fade" id="tabs-messages" role="tabpanel" aria-labelledby="tabs-messages-tab">
-                    Tab 3 content
+                <div class="tab-pane fade" id="tabs-units" role="tabpanel" aria-labelledby="tabs-units-tab">
+        @if ($neighborhood->units->count() < 1)
+            <p class="text-center">There are no units to show.</p>
+        @else
+            <table>
+                <thead>
+                    <tr>
+                        <th class="py-2 px-4">Name</th>
+                        <th class="py-2 px-4">Neighborhood</th>
+                        <th class="py-2 px-4">Status</th>
+                        <th class="py-2 px-4">Last Updated</th>
+                        <th class="py-2 px-4"></th>
+                        <tbody>
+                            @foreach ($neighborhood->units as $unit)
+                                <tr>
+                                    <td class="py-2 px-4">
+                                        <a href="{{ route('admin.units.show', $unit->slug) }}" class="underline text-blue-400">{{ $unit->name }}</a>
+                                    </td>
+                                    <td class="py-2 px-4 text-center">{{ $unit->neighborhood->name }}</td>
+                                    <td class="py-2 px-4">{{ ucwords($unit->status) }}</td>
+                                    <td class="py-2 px-4">{{ \Carbon\Carbon::parse($unit->updated_at)->format('Y-m-d') }}</td>
+                                    <td class="py-2 px-4">
+                                        <a href="{{ route('admin.units.edit', $unit->slug) }}" class="text-white bg-blue-600 hover:bg-blue-800 p-2 pr-1 mr-2 rounded-sm">
+                                            <i class="fa-solid fa-pen-to-square"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </tr>
+                </thead>
+            </table>
+        @endif
                 </div>
-                <div class="tab-pane fade" id="tabs-contact" role="tabpanel" aria-labelledby="tabs-contact-tab">
+                {{-- <div class="tab-pane fade" id="tabs-contact" role="tabpanel" aria-labelledby="tabs-contact-tab">
                     Tab 4 content
                 </div> --}}
             </div>

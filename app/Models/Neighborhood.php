@@ -33,6 +33,6 @@ class Neighborhood extends Model
 
     public function pics()
     {
-        return $this->morphMany(Pic::class, 'picable');
+        return $this->morphMany(Pic::class, 'picable')->orderBy('order');
     }
 }

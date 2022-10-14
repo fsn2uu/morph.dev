@@ -133,7 +133,21 @@ class NeighborhoodController extends Controller
 
         $neighborhood = Neighborhood::where('slug', $slug)->firstOrFail();
 
-        $neighborhood->update($request->except(['_token', '_method', 'pics']));
+        $neighborhood->update($request->except(['_token', '_method', 'pics', 'existing_pics']));
+
+        if($request->has('existing_pics'))
+        {
+            //dd($request);
+            foreach($request->existing_pics as $k => $v)
+            {
+                $pic = Pic::find($k);
+                $pic->update([
+                    'order' => $v['order'],
+                    'alt' => $v['alt'],
+                    'description' => $v['description'],
+                ]);
+            }
+        }
 
         if($request->has('pics'))
         {
@@ -170,8 +184,8 @@ class NeighborhoodController extends Controller
      */
     public function destroy($slug)
     {
-        Neighborhood::where('slug', $slug)->delete();
+        // Neighborhood::where('slug', $slug)->delete();
 
-        return redirect()->route('admin.neighborhoods.index');
+        // return redirect()->route('admin.neighborhoods.index');
     }
 }
