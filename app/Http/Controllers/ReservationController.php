@@ -69,6 +69,31 @@ class ReservationController extends Controller
             $request->request->remove('traveler');
         }
 
+        //THIS CAN BE MOVED TO A RESOURCE OR SERVICE PROVIDER LATER
+        if($request->payment == 'payment-card')
+        {
+            \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+
+            $token = \Stripe\Token::create([
+                'card' => [
+                    'number' => trim(str_replace(' ', '', $request->card)),
+                    'exp_month' => $request->exp_mo,
+                    'exp_year' => $request->exp_yr,
+                    'cvc' => $request->cvv,
+                ]
+            ]);
+
+            $stripe_percent = env('STRIPE_FEE_PERCENT');
+            $stripe_flat = env('STRIPE_FEE_FLAT');
+
+            $chargeout = \Stripe\Charge::create([
+                "amount"    => '',
+                "currency"    => "usd",
+                'source'    => $token['ID'],
+                "on_behalf_of" => Auth::user()->company->stripe_account_id,
+            ]);
+        }
+
         $new_start_date = \Carbon\Carbon::parse($request->start_date)->format('Y-m-d');
         $new_end_date = \Carbon\Carbon::parse($request->end_date)->format('Y-m-d');
         $request->merge(['start_date' => $new_start_date, 'end_date' => $new_end_date]);
