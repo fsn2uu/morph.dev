@@ -56,6 +56,9 @@
                 <label for="password_confirmation" class="block mb-5">Confirm Password <span class="text-red-400">*</span>
                     <input type="text" name="password_confirmation" id="password_confirmation" required class="shadow appearance-none border border-[#ccc] mb-2 rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline">
                 </label>
+                <label for="id_number" class="block mb-5">Last 4 of Your SSN <span class="text-red-400">*</span>
+                    <input type="text" name="id_number" id="id_number" required class="shadow appearance-none border border-[#ccc] mb-2 rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline">
+                </label>
             </div>
             <h2 class="text-contrastGold text-3xl text-center mb-4">Tell Us About Your Company</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
@@ -93,16 +96,94 @@
                     <input type="file" name="logo" id="logo" required class="shadow appearance-none border border-[#ccc] mb-2 rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline">
                 </label>
             </div>
+            <h2 class="text-contrastGold text-3xl text-center mb-4">Payment Information</h2>
+            <div class="form-group">
+                <label for="card-element">Credit Card Information</label>
+                <div id="card-element">
+                    <!-- A Stripe Element will be inserted here. -->
+                </div>
+                
+                <!-- Used to display Element errors. -->
+                <div id="card-errors" role="alert"></div>
+                @if($errors->has('card-element'))
+                <span class="invalid-feedback">{{ $errors->first('card-element') }}</span>
+                @endif
+            </div>
+            <h2 class="text-contrastGold text-3xl text-center mb-4">Banking Information</h2>
+            <label for="account_number" class="block mb-5">Bank Account Number <span class="text-red-400">*</span>
+                <input type="text" required name="account_number" id="account_number" required class="shadow appearance-none border border-[#ccc] mb-2 rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline">
+            </label>
+            <label for="routing_number" class="block mb-5">Routing Number <span class="text-red-400">*</span>
+                <input type="text" required name="routing_number" id="routing_number" required class="shadow appearance-none border border-[#ccc] mb-2 rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline">
+            </label>
             <label for="accepted_terms" class="block mb-5">
                 <input type="checkbox" value="1" required name="accepted_terms" id="accepted_terms" class="shadow appearance-none border border-[#ccc] bg-white mb-2 rounded p-2 leading-tight focus:outline-none focus:shadow-outline">
                 <span class="text-red-400">*</span> Click here to accept the <a href="{{ route('tos') }}" target="_blank" class="underline text-blue-400">Terms of Service</a> for Morph Digital.
             </label>
             <label for="acknowledged_legality" class="block mb-5">
                 <input type="checkbox" value="1" required name="acknowledged_legality" id="acknowledged_legality" class="shadow appearance-none border border-[#ccc] bg-white mb-2 rounded p-2 leading-tight focus:outline-none focus:shadow-outline">
-                <span class="text-red-400">*</span> Click here to certify that you are legally able to use this service as required by local, state, and other applicable law.
+                <span class="text-red-400">*</span> Click here to certify that you are legally able to use this service as required by local, state, and other applicable law, and that all information provided is true and accurate.
             </label>
             <input type="submit" value="Let's Go!" class="nav bg-gold hover:bg-darkGold text-black hover:text-white py-3 px-4 decoration-0 flex-nowrap">
         </form>
     </section>
+
+    <script src="https://js.stripe.com/v3/"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
+    <script>
+        jQuery(function(){
+            var stripe = Stripe('{{ env('STRIPE_KEY') }}');
+            var elements = stripe.elements();
+
+            var style = {
+                base: {
+                    // Add your base input styles here. For example:
+                    fontSize: '16px',
+                    color: "#32325d",
+                }
+            };
+            var card = elements.create('card', {style: style});
+            card.mount('#card-element');
+
+            card.addEventListener('change', function(event) {
+              var displayError = document.getElementById('card-errors');
+              if (event.error) {
+                displayError.textContent = event.error.message;
+              } else {
+                displayError.textContent = '';
+              }
+            });
+
+            var form = document.getElementById('payment-form');
+            form.addEventListener('submit', function(event) {
+              event.preventDefault();
+
+              stripe.createToken(card).then(function(result) {
+                if (result.error) {
+                  // Inform the customer that there was an error.
+                  var errorElement = document.getElementById('card-errors');
+                  errorElement.textContent = result.error.message;
+                } else {
+                  // Send the token to your server.
+                  stripeTokenHandler(result.token);
+                }
+              });
+            });
+
+            function stripeTokenHandler(token) {
+              // Insert the token ID into the form so it gets submitted to the server
+              var form = document.getElementById('payment-form');
+              var hiddenInput = document.createElement('input');
+              hiddenInput.setAttribute('type', 'hidden');
+              hiddenInput.setAttribute('name', 'stripeToken');
+              hiddenInput.setAttribute('value', token.id);
+              form.appendChild(hiddenInput);
+
+              // Submit the form
+              form.submit();
+            }
+        })
+    </script>
     
 </x-guest-layout>

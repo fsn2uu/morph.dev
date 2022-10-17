@@ -6,9 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Scopes\MineScope;
 
+use Laravel\Cashier\Billable;
+
 class Company extends Model
 {
-    use HasFactory;
+    use HasFactory, Billable;
 
     protected $guarded = [];
 
