@@ -8,6 +8,7 @@ use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\TravelerController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\SignupController;
+use App\Http\Controllers\RateController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -62,6 +63,7 @@ Route::middleware(['auth'])->group(function(){
             Route::resource('users', UserController::class);
             Route::resource('travelers', TravelerController::class);
             Route::resource('reservations', ReservationController::class);
+            Route::resource('rates', RateController::class);
             Route::prefix('settings')->group(function(){
                 Route::controller(CompanyController::class)->group(function () {
                     Route::get('company', 'edit')->name('settings.company');
