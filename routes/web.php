@@ -14,17 +14,8 @@ Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
 
-Route::get('signup', function () {
-    $stripe = new \Stripe\StripeClient(
-        env('STRIPE_SECRET')
-      );
-    $prices = $stripe->prices->all(['product' => 'prod_FUlzlKIq6OhRKP']);
-
-    return view('signup')
-        ->withPrices($prices);
-})->name('signup');
-
 Route::controller(SignupController::class)->group(function(){
+    Route::get('signup', 'create')->name('signup');
     Route::post('signup', 'store')->name('signup.store');
 });
 
