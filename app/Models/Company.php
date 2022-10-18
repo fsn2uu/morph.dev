@@ -19,8 +19,6 @@ class Company extends Model
     {
         parent::boot();
 
-        static::addGlobalScope(new MineScope);
-
         Company::creating(function($model){
             $model->api_token = time() . Str::random(54);
         });

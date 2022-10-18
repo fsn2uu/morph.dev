@@ -69,4 +69,9 @@ class User extends Authenticatable
     {
         return $this->morphMany(Pic::class, 'picable');
     }
+
+    public function company()
+    {
+        return $this->belongsTo(Company::class);
+    }
 }

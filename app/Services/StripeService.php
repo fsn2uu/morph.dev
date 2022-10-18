@@ -107,6 +107,7 @@ class StripeService
         // the account id needs to go in the company record
         $company->update([
             'stripe_account_id' => $account['id'],
+            'stripe_id' => $customer['id'],
         ]);
         
         try

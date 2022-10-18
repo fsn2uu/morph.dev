@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Company;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CompanyController extends Controller
 {
@@ -57,7 +58,17 @@ class CompanyController extends Controller
      */
     public function edit(Company $company)
     {
-        return view('admin.settings.company');
+        $company = Company::where('id', Auth::user()->company_id)->first();
+
+        $stripe = new \Stripe\StripeClient(
+            env('STRIPE_SECRET')
+        );
+        $info = $stripe->customers->retrieve(
+            $company->stripe_id,
+            []
+        );
+        return view('admin.settings.company')
+            ->withInfo($info);
     }
 
     /**
