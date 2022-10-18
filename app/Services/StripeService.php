@@ -8,8 +8,6 @@ use App\Models\User;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\UserCreated;
-use App\Mail\CompanyCreated;
 use Illuminate\Support\Str;
 use App\Http\Requests\SignupRequest;
 
@@ -44,9 +42,6 @@ class StripeService
         });
         
         $user->assignRole('manager');
-        
-        Mail::to($user)->send(new CompanyCreated($company));
-        Mail::to($user)->send(new UserCreated($user));
 
         $stripe = new \Stripe\StripeClient(
             env('STRIPE_SECRET')
