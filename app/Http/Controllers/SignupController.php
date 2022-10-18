@@ -50,6 +50,9 @@ class SignupController extends Controller
             'exp_year' => 'required',
             'cvc' => 'required',
             'account_holder' => 'required',
+            'dob_day' => 'required',
+            'dob_month' => 'required',
+            'dob_year' => 'required',
         ]);
 
         if($valid->fails())
@@ -65,8 +68,8 @@ class SignupController extends Controller
             'state' => $request->state,
             'zip' => $request->zip,
             'api_token' => time() . Str::random(54),
-            'accepted_terms' => 1,
-            'acknowledges_legality' => 1,
+            'accepted_terms' => $request->accepted_terms,
+            'acknowledges_legality' => $request->acknowledges_legality,
         ]);
 
         
@@ -180,9 +183,9 @@ class SignupController extends Controller
                 'last_name' => $user->lname,
                 'email' => $user->email,
                 'dob' => [
-                    'day' => $request->dob_day ?: 01,
-                    'month' => $request->dob_month ?: 01,
-                    'year' => $request->dob_year ?: 1999,
+                    'day' => $request->dob_day,
+                    'month' => $request->dob_month,
+                    'year' => $request->dob_year,
                 ],
                 'phone' => $user->phone,
                 'ssn_last_4' => $request->id_number,

@@ -83,6 +83,26 @@
                 @error('id_number')
                     <span class="text-red-400">{{ $message }}</span>
                 @enderror
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                    <label for="dob_day" class="block mb-5">Birthday Day <span class="text-red-400">*</span>
+                        <input type="text" name="dob_day" id="dob_day" required value="{{old('dob_day')}}" class="shadow appearance-none border border-[#ccc] mb-2 rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline">
+                        @error('dob_day')
+                            <span class="text-red-400">{{ $message }}</span>
+                        @enderror
+                    </label>
+                    <label for="dob_month" class="block mb-5">Birthday Month <span class="text-red-400">*</span>
+                        <input type="text" name="dob_month" id="dob_month" required value="{{old('dob_month')}}" class="shadow appearance-none border border-[#ccc] mb-2 rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline">
+                        @error('dob_month')
+                            <span class="text-red-400">{{ $message }}</span>
+                        @enderror
+                    </label>
+                    <label for="dob_year" class="block mb-5">Birthday Year <span class="text-red-400">*</span>
+                        <input type="text" name="dob_year" id="dob_year" required value="{{old('dob_year')}}" class="shadow appearance-none border border-[#ccc] mb-2 rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline">
+                        @error('dob_year')
+                            <span class="text-red-400">{{ $message }}</span>
+                        @enderror
+                    </label>
+                </div>
             </div>
             <h2 class="text-contrastGold text-3xl text-center mb-4">Tell Us About Your Company</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
