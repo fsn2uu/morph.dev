@@ -38,9 +38,12 @@ class User extends Authenticatable
     {
         parent::boot();
 
-        User::creating(function($model){
-            $model->company_id = Auth::user()->company_id;
-        });
+        if(Auth::check())
+        {
+            User::creating(function($model){
+                $model->company_id = Auth::user()->company_id;
+            });
+        }
     }
 
     /**

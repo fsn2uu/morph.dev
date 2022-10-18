@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\UserCreated;
 
 class UserController extends Controller
 {
@@ -41,6 +43,8 @@ class UserController extends Controller
         $user = User::create($request->except(['_token', 'role']));
 
         $user->assignRole($request->role);
+
+        Mail::to($user)->send(new UserCreated($user));
 
         return redirect()->route('admin.users.edit', $user->id);
     }

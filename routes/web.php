@@ -7,14 +7,25 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\TravelerController;
 use App\Http\Controllers\ReservationController;
+use App\Http\Controllers\SignupController;
 
 Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
 
 Route::get('signup', function () {
-    return view('signup');
+    $stripe = new \Stripe\StripeClient(
+        env('STRIPE_SECRET')
+      );
+    $prices = $stripe->prices->all(['product' => 'prod_FUlzlKIq6OhRKP']);
+
+    return view('signup')
+        ->withPrices($prices);
 })->name('signup');
+
+Route::controller(SignupController::class)->group(function(){
+    Route::post('signup', 'store')->name('signup.store');
+});
 
 Route::get('features', function () {
     return view('features');
