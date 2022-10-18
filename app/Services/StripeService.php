@@ -127,9 +127,15 @@ class StripeService
                 ],
             ]);
     
-            $stripe->customers->createSource(
+            $bank_account = $stripe->customers->createSource(
                 $customer['id'],
                 ['source' => $token['id']]
+            );
+
+            $stripe->customers->verifySource(
+                $customer['id'],
+                $bank_account['id'],
+                ['amounts' => [32, 45]]
             );
 
             $person = $stripe->accounts->createPerson(
