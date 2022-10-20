@@ -17,6 +17,15 @@ class Rate extends Model
         'amount',
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+
+        Rate::creating(function($model){
+            $model->amount = (int)filter_var($model->amount, FILTER_SANITIZE_NUMBER_INT);
+        });
+    }
+
     public function rate_table()
     {
         return $this->belongsTo(RateTable::class);
