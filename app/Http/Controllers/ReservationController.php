@@ -46,6 +46,9 @@ class ReservationController extends Controller
      */
     public function store(Request $request)
     {
+        //NEED TO VALIDATE THIS
+
+        //MOVE TRAVELERS TO A SERVICE
         if($request->has('traveler'))
         {
             Traveler::updateOrCreate(
@@ -69,30 +72,34 @@ class ReservationController extends Controller
             $request->request->remove('traveler');
         }
 
-        //THIS CAN BE MOVED TO A RESOURCE OR SERVICE PROVIDER LATER
-        if($request->payment == 'payment-card')
-        {
-            \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+        //ALL OF THIS STRIPE CODE NEEDS TO BE MOVED TO A SERVICE AFTER TESTING
+        $stripe = new \Stripe\StripeClient(
+            env('STRIPE_SECRET')
+        );
 
-            $token = \Stripe\Token::create([
-                'card' => [
-                    'number' => trim(str_replace(' ', '', $request->card)),
-                    'exp_month' => $request->exp_mo,
-                    'exp_year' => $request->exp_yr,
-                    'cvc' => $request->cvv,
-                ]
-            ]);
-
-            $stripe_percent = env('STRIPE_FEE_PERCENT');
-            $stripe_flat = env('STRIPE_FEE_FLAT');
-
-            $chargeout = \Stripe\Charge::create([
-                "amount"    => '',
-                "currency"    => "usd",
-                'source'    => $token['ID'],
-                "on_behalf_of" => Auth::user()->company->stripe_account_id,
-            ]);
-        }
+        //token
+        $token = $stripe->tokens->create([
+            'card' => [
+                'number' => $request->payment['card_number'],
+                'exp_month' => $request->payment['exp_month'],
+                'exp_year' => $request->payment['exp_year'],
+                'cvc' => $request->payment['cvc'],
+            ],
+        ]);
+        //charge
+        $charge = $stripe->charges->create([
+            'amount' => $rentalfee,
+            'currency' => 'usd',
+            'source' => $token['id'],
+            'description' => "$traveler->lname, $traveler->fname - Reservation",
+        ]);
+        //transfer
+        $transfee = ($rentalfee * .0029) + .30;
+        $stripe->transfers->create([
+            'amount' => $rentalfee - $transfee,
+            'currency' => 'usd',
+            'destination' => Auth::user()->company->stripe_id,
+        ]);
 
         $new_start_date = \Carbon\Carbon::parse($request->start_date)->format('Y-m-d');
         $new_end_date = \Carbon\Carbon::parse($request->end_date)->format('Y-m-d');

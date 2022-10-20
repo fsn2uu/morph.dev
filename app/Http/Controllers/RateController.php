@@ -7,6 +7,7 @@ use App\Models\Rate;
 use App\Models\RateTable;
 use App\Models\Neighborhood;
 use App\Models\Unit;
+use Illuminate\Support\Facades\Auth;
 
 class RateController extends Controller
 {
@@ -57,10 +58,10 @@ class RateController extends Controller
             foreach ($request->rates as $key => $rate) {
                 Rate::create([
                     'rate_table_id' => $rate_table->id,
-                    'name' => $rate->label,
-                    'start_date' => \Carbon\Carbon::parse($rate->start_date)->format('Y-m-d'),
-                    'end_date' => \Carbon\Carbon::parse($rate->end_date)->format('Y-m-d'),
-                    'amount' => $rate->amount,
+                    'name' => $rate['label'],
+                    'start_date' => \Carbon\Carbon::parse($rate['start_date'])->format('Y-m-d'),
+                    'end_date' => \Carbon\Carbon::parse($rate['end_date'])->format('Y-m-d'),
+                    'amount' => $rate['amount'],
                 ]);
             }
         }

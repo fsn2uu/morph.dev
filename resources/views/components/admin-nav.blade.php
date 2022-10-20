@@ -10,6 +10,7 @@
             <a href="{{ route('admin.neighborhoods.index') }}" class="nav">Neighborhoods</a>
             <a href="{{ route('admin.units.index') }}" class="nav">Units</a>
             <a href="{{ route('admin.reservations.index') }}" class="nav">Reservations</a>
+            <a href="{{ route('admin.rates.index') }}" class="nav">Rates</a>
             <a href="{{ route('admin.travelers.index') }}" class="nav">Travelers</a>
             <a href="#" class="nav">Specials</a>
             <a href="#" class="nav">Tasks</a>
@@ -63,6 +64,7 @@
             <a href="{{ route('admin.neighborhoods.index') }}">Neighborhoods</a>
             <a href="{{ route('admin.units.index') }}">Units</a>
             <a href="{{ route('admin.reservations.index') }}">Reservations</a>
+            <a href="{{ route('admin.rates.index') }}">Rates</a>
             <a href="{{ route('admin.travelers.index') }}">Travelers</a>
             <a href="#">Specials</a>
             <a href="#">Tasks</a>

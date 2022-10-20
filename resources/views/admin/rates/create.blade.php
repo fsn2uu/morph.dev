@@ -75,7 +75,7 @@
             const label_input1 = document.createElement('input')
             label_input1.setAttribute('type', 'text')
             label_input1.setAttribute('class', 'shadow appearance-none border border-[#ccc] mb-2 rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline')
-            label_input1.setAttribute('name', 'rates['+random+'][\'label\']')
+            label_input1.setAttribute('name', 'rates['+random+'][label]')
             grid1.appendChild(label_input1)
             grid.appendChild(grid1)
 
@@ -83,7 +83,7 @@
             const label_input2 = document.createElement('input')
             label_input2.setAttribute('type', 'text')
             label_input2.setAttribute('class', 'shadow appearance-none border border-[#ccc] mb-2 rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline')
-            label_input2.setAttribute('name', 'rates['+random+'][\'start_date\']')
+            label_input2.setAttribute('name', 'rates['+random+'][start_date]')
             grid2.appendChild(label_input2)
             grid.appendChild(grid2)
 
@@ -91,7 +91,7 @@
             const label_input3 = document.createElement('input')
             label_input3.setAttribute('type', 'text')
             label_input3.setAttribute('class', 'shadow appearance-none border border-[#ccc] mb-2 rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline')
-            label_input3.setAttribute('name', 'rates['+random+'][\'end_date\']')
+            label_input3.setAttribute('name', 'rates['+random+'][end_date]')
             grid3.appendChild(label_input3)
             grid.appendChild(grid3)
 
@@ -99,7 +99,7 @@
             const label_input4 = document.createElement('input')
             label_input4.setAttribute('type', 'text')
             label_input4.setAttribute('class', 'shadow appearance-none border border-[#ccc] mb-2 rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline')
-            label_input4.setAttribute('name', 'rates['+random+'][\'amount\']')
+            label_input4.setAttribute('name', 'rates['+random+'][amount]')
             label_input4.setAttribute('placeholder', '10000 = $100.00')
             grid4.appendChild(label_input4)
             grid.appendChild(grid4)
