@@ -10440,6 +10440,9 @@ select {
 .grid-cols-2 {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
+.grid-cols-5 {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
 .flex-row {
   flex-direction: row;
 }
@@ -10648,6 +10651,10 @@ select {
 .bg-green-600 {
   --tw-bg-opacity: 1;
   background-color: rgb(56 161 105 / var(--tw-bg-opacity));
+}
+.bg-red-400 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(252 129 129 / var(--tw-bg-opacity));
 }
 .bg-hero {
   background-image: url('https://morph.dev:8890/assets/pexels-ruvim-miksanskiy-2335167.jpeg');
@@ -11160,6 +11167,11 @@ select {
   background-color: rgb(39 103 73 / var(--tw-bg-opacity));
 }
   
+  .hover\:bg-red-600:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(229 62 62 / var(--tw-bg-opacity));
+}
+  
   .hover\:text-gray-500:hover {
   --tw-text-opacity: 1;
   color: rgb(160 174 192 / var(--tw-text-opacity));
@@ -11465,6 +11477,10 @@ select {
 
   .md\:grid-cols-2 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .md\:grid-cols-5 {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
   }
 
   .md\:flex-row {

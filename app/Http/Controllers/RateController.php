@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Rate;
 use App\Models\RateTable;
+use App\Models\Neighborhood;
+use App\Models\Unit;
 
 class RateController extends Controller
 {
@@ -27,7 +29,12 @@ class RateController extends Controller
      */
     public function create()
     {
-        return view("admin.rates.create");
+        $neighborhoods = Neighborhood::all()->toJson();
+        $units = Unit::all()->toJson();
+
+        return view("admin.rates.create")
+            ->withNeighborhoods($neighborhoods)
+            ->withUnits($units);
     }
 
     /**
@@ -38,7 +45,27 @@ class RateController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $rate_table = RateTable::create([
+            'name' => $request->name,
+            'company_id' => Auth::user()->company->id,
+            'neighborhood_id' => $request->neighborhood_id,
+            'unit_id' => $request->unit_id,
+        ]);
+
+        if($request->has('rates'))
+        {
+            foreach ($request->rates as $key => $rate) {
+                Rate::create([
+                    'rate_table_id' => $rate_table->id,
+                    'name' => $rate->label,
+                    'start_date' => \Carbon\Carbon::parse($rate->start_date)->format('Y-m-d'),
+                    'end_date' => \Carbon\Carbon::parse($rate->end_date)->format('Y-m-d'),
+                    'amount' => $rate->amount,
+                ]);
+            }
+        }
+
+        return redirect()->route('admin.rates.index');
     }
 
     /**
