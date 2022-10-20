@@ -25,6 +25,19 @@ class Unit extends Model
         Unit::creating(function($model){
             $model->slug = Str::of($model->name)->slug('-');
             $model->company_id = Auth::user()->company_id;
+
+            $stripe = new \Stripe\StripeClient(
+                env('STRIPE_SECRET')
+            );
+    
+            $subscriptions = $stripe->subscriptions->all(['customer' => Auth::user()->company->stripe_id]);
+            $price = $stripe->plans->retrieve(
+                $subscriptions['data'][0]['plan']['id'],
+                []
+            );
+
+            //NEED TO GET THIS REDIRECTED TO A CUSTOM ERROR PAGE WITH A CHANCE TO UPGRADE THE PACKAGE
+            return $price['metadata']['unit_limit'] >= Auth::user()->company->units->count();
         });
     }
 

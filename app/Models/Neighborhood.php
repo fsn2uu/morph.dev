@@ -23,6 +23,19 @@ class Neighborhood extends Model
         Neighborhood::creating(function($model){
             $model->slug = Str::of($model->name)->slug('-');
             $model->company_id = Auth::user()->company_id;
+
+            $stripe = new \Stripe\StripeClient(
+                env('STRIPE_SECRET')
+            );
+    
+            $subscriptions = $stripe->subscriptions->all(['customer' => Auth::user()->company->stripe_id]);
+            $price = $stripe->plans->retrieve(
+                $subscriptions['data'][0]['plan']['id'],
+                []
+            );
+
+            //NEED TO GET THIS REDIRECTED TO A CUSTOM ERROR PAGE WITH A CHANCE TO UPGRADE THE PACKAGE
+            return $price['metadata']['neighborhood_limit'] >= Auth::user()->company->neighborhoods->count();
         });
     }
 
@@ -34,5 +47,10 @@ class Neighborhood extends Model
     public function pics()
     {
         return $this->morphMany(Pic::class, 'picable')->orderBy('order');
+    }
+
+    public function company()
+    {
+        return $this->belongsTo(Company::class);
     }
 }

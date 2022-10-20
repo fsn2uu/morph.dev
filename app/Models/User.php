@@ -74,4 +74,14 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Company::class);
     }
+
+    public function neighborhoods()
+    {
+        return $this->hasMany(Neighborhood::class);
+    }
+
+    public function units()
+    {
+        return $this->hasMany(Unit::class);
+    }
 }

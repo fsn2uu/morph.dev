@@ -33,4 +33,14 @@ class Company extends Model
     {
         return $this->belongsToMany(Traveler::class)->orderBy('last');
     }
+
+    public function neighborhoods()
+    {
+        return $this->hasMany(Neighborhood::class);
+    }
+
+    public function units()
+    {
+        return $this->hasMany(Unit::class);
+    }
 }
