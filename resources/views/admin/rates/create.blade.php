@@ -61,6 +61,7 @@
 
 @push('scripts')
 
+    {{-- all of this needs to be broken off, simplified, and cleaned up --}}
     <script>
         function row_creator(random)
         {
@@ -99,6 +100,7 @@
             label_input4.setAttribute('type', 'text')
             label_input4.setAttribute('class', 'shadow appearance-none border border-[#ccc] mb-2 rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline')
             label_input4.setAttribute('name', 'rates['+random+'][\'amount\']')
+            label_input4.setAttribute('placeholder', '10000 = $100.00')
             grid4.appendChild(label_input4)
             grid.appendChild(grid4)
 
