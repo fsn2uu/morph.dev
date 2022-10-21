@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use App\Http\Requests\SignupRequest;
+use Illuminate\Support\Facades\Storage;
+use App\Models\Pic;
 
 class StripeService
 {
@@ -25,6 +27,25 @@ class StripeService
             'accepted_terms' => $request->accepted_terms,
             'acknowledges_legality' => $request->acknowledged_legality,
         ]);
+
+        if($request->has('logo'))
+        {
+            $name = $request->logo->getClientOriginalName();
+            $extension = $request->logo->getClientOriginalExtension();
+
+            $path = Storage::putFileAs(
+                'companies/'.$company->id, $request->logo, $name, 'public'
+            );
+
+            $picModel = new Pic([
+                'company_id' => $company->id,
+                'filename' => 'storage/'.$path,
+                'order' => 0,
+                'alt' => "$company->name",
+                'title' => "$company->name",
+            ]);
+            $company->pics()->save($picModel);
+        }
 
         $user = User::withoutEvents(function() use($company, $request) {
             $user = new User;

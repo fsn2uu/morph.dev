@@ -85,19 +85,34 @@
                 @enderror
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
                     <label for="dob_day" class="block mb-5">Birthday Day <span class="text-red-400">*</span>
-                        <input type="text" name="dob_day" id="dob_day" required value="{{old('dob_day')}}" class="shadow appearance-none border border-[#ccc] mb-2 rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline">
+                        <select name="dob_day" id="dob_day" required class="shadow appearance-none border border-[#ccc] mb-2 rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline">
+                            <option value=""></option>
+                            @for ($i = 1; $i <= 31; $i++)
+                                <option value="{{ $i }}" {{ old('dob_day') == $i ? 'selected' : '' }}>{{ $i }}</option>
+                            @endfor
+                        </select>
                         @error('dob_day')
                             <span class="text-red-400">{{ $message }}</span>
                         @enderror
                     </label>
                     <label for="dob_month" class="block mb-5">Birthday Month <span class="text-red-400">*</span>
-                        <input type="text" name="dob_month" id="dob_month" required value="{{old('dob_month')}}" class="shadow appearance-none border border-[#ccc] mb-2 rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline">
+                        <select name="dob_month" id="dob_month" required class="shadow appearance-none border border-[#ccc] mb-2 rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline">
+                            <option value=""></option>
+                            @for ($i = 1; $i <= 12; $i++)
+                                <option value="{{ $i }}" {{ old('dob_month') == $i ? 'selected' : '' }}>{{ $i }}</option>
+                            @endfor
+                        </select>
                         @error('dob_month')
                             <span class="text-red-400">{{ $message }}</span>
                         @enderror
                     </label>
                     <label for="dob_year" class="block mb-5">Birthday Year <span class="text-red-400">*</span>
-                        <input type="text" name="dob_year" id="dob_year" required value="{{old('dob_year')}}" class="shadow appearance-none border border-[#ccc] mb-2 rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline">
+                        <select name="dob_year" id="dob_year" required class="shadow appearance-none border border-[#ccc] mb-2 rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline">
+                            <option value=""></option>
+                            @for ($i = \Carbon\Carbon::now()->subYears(16)->format('Y'); $i >= 1901; $i--)
+                                <option value="{{ $i }}" {{ old('dob_year') == $i ? 'selected' : '' }}>{{ $i }}</option>
+                            @endfor
+                        </select>
                         @error('dob_year')
                             <span class="text-red-400">{{ $message }}</span>
                         @enderror
@@ -261,7 +276,10 @@
                 </label>
             </div>
             <h2 class="text-contrastGold text-3xl text-center mb-4">Banking Information</h2>
-            <p>We use this information to deposit your reservations and fees.</p>
+            <p class="mb-5">We use this information to deposit your reservations and fees.</p>
+            <p class="mb-5">By default, 100% of fees (minus processing fees) are deposited to this account.  After creating your account, you will have 
+                the ability to add multiple bank accounts and split the fees among them.
+            </p>
             <label for="account_holder" class="block mb-5">Account Holder Name
                 <input type="text" name="account_holder" id="account_holder" required value="{{old('account_holder')}}" class="shadow appearance-none border border-[#ccc] mb-2 rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline">
             </label>
