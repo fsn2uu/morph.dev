@@ -77,7 +77,7 @@ class RateController extends Controller
      */
     public function show($id)
     {
-        //
+        return redirect()->route('admin.rates.edit', $id);
     }
 
     /**
@@ -88,7 +88,15 @@ class RateController extends Controller
      */
     public function edit($id)
     {
-        //
+        $rate_table = RateTable::find($id);
+        $neighborhoods = Neighborhood::all()->toJson();
+        $units = Unit::all()->toJson();
+        
+        return view('admin.rates.edit', [
+            'rate_table' => $rate_table,
+            'units' => $units,
+            'neighborhoods' => $neighborhoods,
+        ]);
     }
 
     /**
