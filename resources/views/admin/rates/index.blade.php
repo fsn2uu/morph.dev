@@ -24,7 +24,7 @@
                 </tbody>
             </table>
         @else
-            <p>There are no rate tables to display.</p>
+            <p class="text-center">There are no rate tables to display.</p>
         @endif
     </section>
 

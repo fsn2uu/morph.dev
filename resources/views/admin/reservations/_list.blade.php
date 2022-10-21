@@ -20,5 +20,5 @@
         </tbody>
     </table>
 @else
-    <p>There are no reservations to show.</p>
+    <p class="text-center">There are no reservations to show.</p>
 @endif

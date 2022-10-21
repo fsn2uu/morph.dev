@@ -48,7 +48,7 @@
                 </tbody>
             </table>
         @else
-            <p>There are no travelers to display.</p>
+            <p class="text-center">There are no travelers to display.</p>
         @endif
     </section>
 
