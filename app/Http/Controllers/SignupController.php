@@ -11,7 +11,6 @@ class SignupController extends Controller
 {
     public function create(Request $request)
     {
-        //dd($request->session());
         $stripe = new \Stripe\StripeClient(
             env('STRIPE_SECRET')
           );
