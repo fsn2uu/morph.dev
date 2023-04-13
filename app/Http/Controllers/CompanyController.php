@@ -67,8 +67,15 @@ class CompanyController extends Controller
             $company->stripe_id,
             []
         );
+
+        $banks = $stripe->customers->allSources(
+            $company->stripe_id,
+            ['object' => 'bank_account']
+        );
+
         return view('admin.settings.company')
-            ->withInfo($info);
+            ->withInfo($info)
+            ->withBanks($banks);
     }
 
     /**

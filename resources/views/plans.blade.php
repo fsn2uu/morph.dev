@@ -12,7 +12,21 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div class="text-center border rounded-lg border-charcoal hover:bg-charcoal hover:text-white p-6 group">
                 <h3 class="text-3xl text-contrastGold text-center mb-2 group-hover:text-gold">Plan 1</h3>
-                <h4 class="text-2xl text-contrastGold text-center mb-4 group-hover:text-gold">$12.95 / Month</h4>
+                <h4 class="text-2xl text-contrastGold text-center mb-4 group-hover:text-gold">$29.99 / Month</h4>
+                <ul class="mb-4">
+                    <li>Up to 5 neighborhoods</li>
+                    <li>Up to 5 units</li>
+                    <li>Up to 10 pictures per unit / neighborhood</li>
+                    <li>WordPress plugin</li>
+                    <li>Review moderation</li>
+                    <li>Maintenance task management</li>
+                    <li>Unlimited employees & managers</li>
+                </ul>
+                <a href="#" class="block bg-gold hover:bg-darkGold text-black hover:text-white mt-4 py-3 px-4 decoration-0">Get Started</a>
+            </div>
+            <div class="text-center border rounded-lg border-charcoal hover:bg-charcoal hover:text-white p-6 group">
+                <h3 class="text-3xl text-contrastGold text-center mb-2 group-hover:text-gold">Plan 2</h3>
+                <h4 class="text-2xl text-contrastGold text-center mb-4 group-hover:text-gold">$59.99 / Month</h4>
                 <ul class="mb-4">
                     <li>Up to 10 neighborhoods</li>
                     <li>Up to 10 units</li>
@@ -25,11 +39,11 @@
                 <a href="#" class="block bg-gold hover:bg-darkGold text-black hover:text-white mt-4 py-3 px-4 decoration-0">Get Started</a>
             </div>
             <div class="text-center border rounded-lg border-charcoal hover:bg-charcoal hover:text-white p-6 group">
-                <h3 class="text-3xl text-contrastGold text-center mb-2 group-hover:text-gold">Plan 2</h3>
-                <h4 class="text-2xl text-contrastGold text-center mb-4 group-hover:text-gold">$23.95 / Month</h4>
+                <h3 class="text-3xl text-contrastGold text-center mb-2 group-hover:text-gold">Plan 3</h3>
+                <h4 class="text-2xl text-contrastGold text-center mb-4 group-hover:text-gold">$89.99 / Month</h4>
                 <ul class="mb-4">
-                    <li>Up to 20 neighborhoods</li>
-                    <li>Up to 20 units</li>
+                    <li>Up to 30 neighborhoods</li>
+                    <li>Up to 30 units</li>
                     <li>Up to 25 pictures per unit / neighborhood</li>
                     <li>WordPress plugin</li>
                     <li>Review moderation</li>
@@ -39,12 +53,12 @@
                 <a href="#" class="block bg-gold hover:bg-darkGold text-black hover:text-white mt-4 py-3 px-4 decoration-0">Get Started</a>
             </div>
             <div class="text-center border rounded-lg border-charcoal hover:bg-charcoal hover:text-white p-6 group">
-                <h3 class="text-3xl text-contrastGold text-center mb-2 group-hover:text-gold">Plan 3</h3>
-                <h4 class="text-2xl text-contrastGold text-center mb-4 group-hover:text-gold">$59.95 / Month</h4>
+                <h3 class="text-3xl text-contrastGold text-center mb-2 group-hover:text-gold">Plan 4</h3>
+                <h4 class="text-2xl text-contrastGold text-center mb-4 group-hover:text-gold">$159.99 / Month</h4>
                 <ul class="mb-4">
-                    <li>Up to 50 neighborhoods</li>
-                    <li>Up to 50 units</li>
-                    <li>Up to 55 pictures per unit / neighborhood</li>
+                    <li>Up to 80 neighborhoods</li>
+                    <li>Up to 80 units</li>
+                    <li>Up to 25 pictures per unit / neighborhood</li>
                     <li>WordPress plugin</li>
                     <li>Review moderation</li>
                     <li>Maintenance task management</li>
@@ -65,13 +79,12 @@
         </ul>
         <h2 class="text-4xl text-contrastGold text-center mb-4">Additional Fees</h2>
         <p class="mb-2">
-            Plans come with a set number of units and neighborhoods, though additional units / neighborhoods may be purchased for $4.99 each per month.  Purchased units and neighborhoods 
+            Plans come with a set number of units and neighborhoods, though additional units / neighborhoods may be purchased for $6.99 each per month.  Purchased units and neighborhoods 
             inherit their picture limits from your purchased plan.
         </p>
         <p class="mb-4">
             Rentals are secured via credit card, for which there is a processing fee.  Fees are 2.9% + 0.30 per transaction and are securely processed by Stripe, Inc..  
-            Currently there are no alternatives to Stripe.  Please be aware that fees may change at any time without notice.  See Stripe's documentation for further information 
-            on fees.
+            Please be aware that fees may change at any time without notice.
         </p>
     </section>
 

@@ -14,9 +14,19 @@ class UnitController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('admin.units.index', ['units' => Unit::paginate(20)]);
+        $start_date = $request->start_date ?: null;
+        $end_date = $request->end_date ?: null;
+        $beds = $request->beds ?: null;
+        $baths = $request->baths ?: null;
+        $sleeps = $request->sleeps ?: null;
+        $neighborhood = $request->neighborhood ?: null;
+        $amenities = $request->amenities ?: null;
+        
+        $units = Unit::search($start_date, $end_date, $beds = null, $baths = null, $sleeps = null, $amenities = null)->paginate(20);
+
+        return view('admin.units.index', ['units' => $units]);
     }
 
     /**

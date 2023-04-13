@@ -46,9 +46,25 @@ class Unit extends Model
         return $this->belongsTo(Neighborhood::class);
     }
 
+    public function availabilities()
+    {
+        return $this->hasMany(Availability::class);
+    }
+
+    public function reservations()
+    {
+        return $this->hasMany(Reservation::class);
+    }
+
+
     public function pics()
     {
         return $this->morphMany(Pic::class, 'picable');
+    }
+
+    public function rate_table()
+    {
+        return $this->hasOne(RateTable::class);
     }
 
     public function scopeAvailable($query, $value = [])
@@ -64,4 +80,39 @@ class Unit extends Model
             return $query->whereNotIn('id', $reserved);
         endif;
     }
+
+    public function scopeSearch($query, $start_date = null, $end_date = null, $beds = null, $baths = null, $sleeps = null, $amenities = null)
+    {
+        if ($start_date && $end_date) {
+            $query->whereDoesntHave('reservations', function ($subquery) use ($start_date, $end_date) {
+                $subquery->where('start_date', '<=', $end_date)
+                        ->where('end_date', '>=', $start_date);
+            });
+        }
+        
+        if ($beds) {
+            $query->where('beds', $beds);
+        }
+        
+        if ($baths) {
+            $query->where('baths', $baths);
+        }
+        
+        if ($sleeps) {
+            $query->where('sleeps', $sleeps);
+        }
+        
+        if ($amenities) {
+            foreach ($amenities as $amenity) {
+                $query->whereHas('amenities', function ($subquery) use ($amenity) {
+                    $subquery->where('name', $amenity);
+                });
+            }
+        }
+        
+        return $query;
+    }
+
+
+
 }

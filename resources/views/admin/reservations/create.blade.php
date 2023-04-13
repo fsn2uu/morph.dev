@@ -31,6 +31,44 @@
                 </select>
             </div>
 
+            <label for="number" class="block mb-5">Credit Card Number <span class="text-red-400">*</span>
+                <input type="text" name="number" id="number" required value="{{ old('number') }}" class="shadow appearance-none border border-[#ccc] mb-2 rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline">
+            </label>
+            @error('number')
+                <span class="text-red-400">{{ $message }}</span>
+            @enderror
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                <label for="exp_year" class="block mb-5">Exp Year <span class="text-red-400">*</span>
+                    <select name="exp_year" id="exp_year" required class="shadow appearance-none border border-[#ccc] mb-2 rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline">
+                        <option value=""></option>
+                        @for ($i = date('Y'); $i < date('Y') + 10; $i++)
+                            <option {{ old('exp_year') == $i ? 'selected' : '' }}>{{$i}}</option>
+                        @endfor
+                    </select>
+                    @error('exp_year')
+                        <span class="text-red-400">{{ $message }}</span>
+                    @enderror
+                </label>
+                <label for="exp_month" class="block mb-5">Exp Month <span class="text-red-400">*</span>
+                    <select name="exp_month" id="exp_month" required class="shadow appearance-none border border-[#ccc] mb-2 rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline">
+                        <option value=""></option>
+                        @for ($i = 1; $i <= 12; $i++)
+                            <option {{ old('exp_month') == $i ? 'selected' : '' }}>{{$i}}</option>
+                        @endfor
+                    </select>
+                    @error('exp_month')
+                        <span class="text-red-400">{{ $message }}</span>
+                    @enderror
+                </label>
+                <label for="cvc" class="block mb-5">CVC Number <span class="text-red-400">*</span>
+                    <input type="text" name="cvc" id="cvc" value="{{old('cvc')}}" class="shadow appearance-none border border-[#ccc] mb-2 rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline">
+                    @error('cvc')
+                        <span class="text-red-400">{{ $message }}</span>
+                    @enderror
+                </label>
+            </div>
+
             <label for="type"  class="block">Type of Reservation</label>
             <select name="type" id="type" class="shadow appearance-none border border-[#ccc] mb-2 rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline">
                 <option value=""></option>

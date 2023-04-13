@@ -43,4 +43,9 @@ class Company extends Model
     {
         return $this->hasMany(Unit::class);
     }
+
+    public function rate_table()
+    {
+        return $this->hasOne(RateTable::class);
+    }
 }

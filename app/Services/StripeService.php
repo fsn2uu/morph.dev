@@ -12,6 +12,7 @@ use Illuminate\Support\Str;
 use App\Http\Requests\SignupRequest;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Pic;
+use App\Models\Bank;
 
 class StripeService
 {
@@ -82,6 +83,7 @@ class StripeService
                     'postal_code' => $company->zip,
                 ],
             ]);
+            
     
             $payment_method = $stripe->paymentMethods->create([
                 'type' => 'card',
@@ -148,6 +150,13 @@ class StripeService
                 $customer['id'],
                 ['source' => $token['id']]
             );
+
+            Bank::create([
+                'company_id' => $company->id,
+                'stripe_id' => $bank_account['id'],
+                'split' => 100,
+                'split_type' => 'percent',
+            ]);
 
             $stripe->customers->verifySource(
                 $customer['id'],

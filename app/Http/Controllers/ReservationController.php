@@ -72,6 +72,19 @@ class ReservationController extends Controller
             $request->request->remove('traveler');
         }
 
+        //calculate the rental fee
+        if($unit->rate_table):
+            $rates = $unit->rate_table->rates;
+        elseif($unit->neighborhood->rate_table):
+            $rates = $unit->neighborhood->rate_table->rates;
+        elseif(Auth::user()->company->rate_table):
+            $rates = Auth::user()->company->rate_table->rates;
+        else:
+            //die with an error.
+        endif;
+        dd($rates);
+        $rental_fee = $stay_length * $rate;
+
         //ALL OF THIS STRIPE CODE NEEDS TO BE MOVED TO A SERVICE AFTER TESTING
         $stripe = new \Stripe\StripeClient(
             env('STRIPE_SECRET')
@@ -80,10 +93,10 @@ class ReservationController extends Controller
         //token
         $token = $stripe->tokens->create([
             'card' => [
-                'number' => $request->payment['card_number'],
-                'exp_month' => $request->payment['exp_month'],
-                'exp_year' => $request->payment['exp_year'],
-                'cvc' => $request->payment['cvc'],
+                'number' => $request->number,
+                'exp_month' => $request->exp_month,
+                'exp_year' => $request->exp_year,
+                'cvc' => $request->cvc,
             ],
         ]);
         //charge

@@ -49,8 +49,8 @@ class RateController extends Controller
         $rate_table = RateTable::create([
             'name' => $request->name,
             'company_id' => Auth::user()->company->id,
-            'neighborhood_id' => $request->neighborhood_id,
-            'unit_id' => $request->unit_id,
+            'neighborhood_id' => $request->neighborhood_id ?: null,
+            'unit_id' => $request->unit_id ?: null,
         ]);
 
         if($request->has('rates'))
