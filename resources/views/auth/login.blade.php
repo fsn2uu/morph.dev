@@ -1,3 +1,11 @@
+{{ Illuminate\Support\Facades\Hash::make('AnotherPassword') }}
+
+
+@if (password_verify('KevinDaniel1', '$2y$10$z.LIWk9zRC8oIoZVwGvTxuQ/4MZelUjvLaNkjJNCwD.wlfAfCzi3.'))
+    Valid
+@else
+   Not so much 
+@endif
 <x-guest-layout>
     <x-auth-card>
         <x-slot name="logo">

@@ -29,10 +29,10 @@ class User extends Authenticatable
         return $query->where('company_id', Auth::user()->company_id);
     }
 
-    public function setPasswordAttribute($password)
-    {
-        $this->attributes['password'] = Hash::make($password);
-    }
+    // public function setPasswordAttribute($password)
+    // {
+    //     $this->attributes['password'] = Hash::make($password);
+    // }
 
     public static function boot()
     {
