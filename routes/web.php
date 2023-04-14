@@ -58,6 +58,7 @@ Route::middleware(['auth'])->group(function(){
             Route::prefix('settings')->group(function(){
                 Route::controller(CompanyController::class)->group(function () {
                     Route::get('company', 'edit')->name('settings.company');
+                    Route::post('company', 'update')->name('settings.company');
                 });
             });
         });

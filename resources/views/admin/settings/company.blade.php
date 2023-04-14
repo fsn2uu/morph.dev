@@ -2,7 +2,7 @@
 
     <section id="content-body" class="md:w-[65%] md:mx-auto py-10 px-10 md:px-0 min-h-[60vh]">
         <div class="flex justify-between">
-            <h1 class="text-contrastGold text-5xl mb-4">Company Settings</h1>
+            <h1 class="text-contrastGold text-5xl mb-4">Settings for {{ $company->name }}</h1>
             <div class="items-end">
             </div>
         </div>
@@ -15,6 +15,20 @@
                 <li>{{$sub['plan']['nickname']}}</li>
             @endforeach
         </ul>
+
+        <p>Change Plan to:</p>
+        <form action="{{ route('admin.settings.company', $company) }}" method="post">
+            @csrf
+            <label for="plan" class="block mb-5">Plan <span class="text-red-400">*</span>
+                <select name="plan" id="plan" required class="shadow appearance-none border border-[#ccc] mb-2 rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline">
+                    <option value=""></option>
+                    @foreach ($prices['data'] as $price)
+                        <option value="{{ $price['id'] }}" {{ \Request::get('plan') == $price['id'] ? 'selected' : (old('plan') == $price['id'] ? 'selected' : '') }}>{{ $price['nickname'] }}</option>
+                    @endforeach
+                </select>
+            </label>
+            <input type="submit" value="save">
+        </form>
 
         <h2 class="text-4xl mb-4 text-contrastGold">Banks</h2>
         <p class="mb-5">
