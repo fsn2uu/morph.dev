@@ -18,15 +18,15 @@ class UnitController extends Controller
      */
     public function index(Request $request)
     {
-        $start_date = $request->start_date ?: null;
-        $end_date = $request->end_date ?: null;
-        $beds = $request->beds ?: null;
-        $baths = $request->baths ?: null;
-        $sleeps = $request->sleeps ?: null;
-        $neighborhood = $request->neighborhood ?: null;
-        $amenities = $request->amenities ?: null;
+        $start_date = $request->start_date ?? null;
+        $end_date = $request->end_date ?? null;
+        $beds = $request->beds ?? null;
+        $baths = $request->baths ?? null;
+        $sleeps = $request->sleeps ?? null;
+        $neighborhood = $request->neighborhood ?? null;
+        $amenities = $request->amenities ?? null;
         
-        $units = Unit::search($start_date, $end_date, $beds = null, $baths = null, $sleeps = null, $amenities = null)->paginate(20);
+        $units = Unit::search($start_date, $end_date, $beds, $baths, $sleeps, $amenities)->paginate(20);
 
         return view('admin.units.index', ['units' => $units]);
     }
@@ -65,7 +65,7 @@ class UnitController extends Controller
             $unit->beds = $request->beds;
             $unit->baths = $request->baths;
             $unit->sleeps = $request->sleeps;
-            $unit->description = $request->description;
+            $unit->description = strip_tags($request->description, '<p><b><i>');
             $unit->company_id = $request->company_id;
             $unit->slug = $request->slug;
         $unit->save();
@@ -140,7 +140,23 @@ class UnitController extends Controller
         
         $request->merge(['slug' => Str::of($request->name)->slug('-')]);
 
-        $unit->update($request->except(['_token', 'pics']));
+        $request->merge(['description' => strip_tags($request->description, '<p><b><i>')]);
+
+        $unit->update($request->except(['_token', 'pics', 'existing_pics']));
+
+        if($request->has('existing_pics'))
+        {
+            //dd($request);
+            foreach($request->existing_pics as $k => $v)
+            {
+                $pic = Pic::find($k);
+                $pic->update([
+                    'order' => $v['order'],
+                    'alt' => $v['alt'],
+                    'description' => $v['description'],
+                ]);
+            }
+        }
 
         if($request->has('pics'))
         {

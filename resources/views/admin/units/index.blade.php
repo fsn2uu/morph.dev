@@ -26,15 +26,15 @@
               <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
                   <label for="beds" class="block font-medium text-gray-700">Beds</label>
-                  <input type="number" name="beds" id="beds" class="form-input mt-1 block w-full" value="{{ old('beds') }}" min="0" max="10">
+                  <input type="number" name="beds" id="beds" class="form-input mt-1 block w-full" value="{{ old('beds') ?? $_GET['beds'] ?? '' }}" min="0" max="10">
                 </div>
                 <div>
                   <label for="baths" class="block font-medium text-gray-700">Baths</label>
-                  <input type="number" name="baths" id="baths" class="form-input mt-1 block w-full" value="{{ old('baths') }}" min="0" max="10">
+                  <input type="number" name="baths" id="baths" class="form-input mt-1 block w-full" value="{{ old('baths') ?? $_GET['baths'] ?? '' }}" min="0" max="10">
                 </div>
                 <div>
                   <label for="sleeps" class="block font-medium text-gray-700">Sleeps</label>
-                  <input type="number" name="sleeps" id="sleeps" class="form-input mt-1 block w-full" value="{{ old('sleeps') }}" min="0" max="20">
+                  <input type="number" name="sleeps" id="sleeps" class="form-input mt-1 block w-full" value="{{ old('sleeps') ?? $_GET['sleeps'] ?? '' }}" min="0" max="20">
                 </div>
               </div>
           
@@ -65,6 +65,7 @@
             <table class="w-full mt-10">
                 <thead>
                     <tr>
+                        <th class="py-2 px-4"></th>
                         <th class="py-2 px-4">Name</th>
                         <th class="py-2 px-4">Neighborhood</th>
                         <th class="py-2 px-4">Beds</th>
@@ -76,6 +77,7 @@
                         <tbody>
                             @foreach ($units as $unit)
                                 <tr>
+                                    <td class="py-2 px-4"><img src="{{ asset($unit->pics->first()->filename) }}" alt="{{ $unit->pics->first()->alt ? 'Picture of ' . $unit->name : '' }}" width="90"></td>
                                     <td class="py-2 px-4">
                                         <a href="{{ route('admin.units.show', $unit->slug) }}" class="underline text-blue-400">{{ $unit->name }}</a>
                                     </td>

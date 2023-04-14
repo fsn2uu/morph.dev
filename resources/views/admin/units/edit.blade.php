@@ -26,6 +26,7 @@
                 <div>
                     <label for="neighborhood_id">Neighborhood</label capitalize>
                     <select name="neighborhood_id" id="neighborhood_id" class="shadow appearance-none border border-[#ccc] mb-2 rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline">
+                        <option value=""></option>
                         @foreach (App\Models\Neighborhood::where('company_id', Auth::user()->company_id)->get() as $neighborhood)
                         <option value="{{ $neighborhood->id }}" {{ @$unit->neighborhood->id == $neighborhood->id ? 'selected' : '' }}>{{ $neighborhood->name }}</option>
                         @endforeach
@@ -128,6 +129,29 @@
                     ">
                 </div>
             </div>
+            
+            <p class="text-red-600">Need to get these on a separate tab and setup drag & drop ordering</p>
+            <label for="" class="block capitalize">Existing Photos</label>
+            @foreach ($unit->pics as $pic)
+                <div class="flex flex-row mb-3">
+                    <img src="{{ asset($pic->filename) }}" alt="" style="max-width: 150px;">
+                    <div class="md:ml-5">
+                        <label for="existing_pics_{{ $pic->id }}_order">Order</label>
+                        <input type="text" id="existing_pics_{{ $pic->id }}_order" name="existing_pics[{{ $pic->id }}][order]" value="{{$pic->order}}" class="shadow appearance-one border border-ccc mb-2 rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline">
+                    </div>
+                    <div class="md:ml-5">
+                        <label for="existing_pics_{{ $pic->id }}_alt">Alt Text</label>
+                        <input type="text" id="existing_pics_{{ $pic->id }}_alt" name="existing_pics[{{ $pic->id }}][alt]" value="{{$pic->alt}}" class="shadow appearance-one border border-ccc mb-2 rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline">
+                    </div>
+                    <div class="md:ml-5">
+                        <label for="existing_pics_{{ $pic->id }}_description">Description</label>
+                        <input type="text" id="existing_pics_{{ $pic->id }}_description" name="existing_pics[{{ $pic->id }}][description]" value="{{$pic->description}}" class="shadow appearance-one border border-ccc mb-2 rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline">
+                    </div>
+                    <div class="md:ml-5">
+                        [X]
+                    </div>
+                </div>
+            @endforeach
             <div>
                 <label for="description" class="block capitalize">Description</label>
                 <textarea name="description" id="description" rows="10" class="shadow appearance-none border border-[#ccc] mb-2 rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline">{{ $unit->description }}</textarea>

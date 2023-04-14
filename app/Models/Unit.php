@@ -59,7 +59,7 @@ class Unit extends Model
 
     public function pics()
     {
-        return $this->morphMany(Pic::class, 'picable');
+        return $this->morphMany(Pic::class, 'picable')->orderBy('order');
     }
 
     public function rate_table()
@@ -67,21 +67,21 @@ class Unit extends Model
         return $this->hasOne(RateTable::class);
     }
 
-    public function scopeAvailable($query, $value = [])
-    {
-        // There is a better way to do this.  We'll need to refactor this query after the reservation system is solid.
-        if(@$value['start_date'] && @$value['end_date']):
-            $reserved = [];
-            $reserves = Reservation::whereBetween('start_date', [$value['start_date'], $value['end_date']])->orWhereBetween('end_date', [$value['start_date'], $value['end_date']])->get();
-            foreach($reserves as $res)
-            {
-                $reserved[] = $res->id;
-            }
-            return $query->whereNotIn('id', $reserved);
-        endif;
-    }
+    // public function scopeAvailable($query, $value = [])
+    // {
+    //     // There is a better way to do this.  We'll need to refactor this query after the reservation system is solid.
+    //     if(@$value['start_date'] && @$value['end_date']):
+    //         $reserved = [];
+    //         $reserves = Reservation::whereBetween('start_date', [$value['start_date'], $value['end_date']])->orWhereBetween('end_date', [$value['start_date'], $value['end_date']])->get();
+    //         foreach($reserves as $res)
+    //         {
+    //             $reserved[] = $res->id;
+    //         }
+    //         return $query->whereNotIn('id', $reserved);
+    //     endif;
+    // }
 
-    public function scopeSearch($query, $start_date = null, $end_date = null, $beds = null, $baths = null, $sleeps = null, $amenities = null)
+    public function scopeSearch($query, $start_date, $end_date, $beds, $baths, $sleeps, $amenities)
     {
         if ($start_date && $end_date) {
             $query->whereDoesntHave('reservations', function ($subquery) use ($start_date, $end_date) {

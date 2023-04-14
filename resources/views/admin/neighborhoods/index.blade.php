@@ -12,9 +12,10 @@
         @if ($neighborhoods->count() < 1)
             <p class="text-center">There are no neighborhoods to show.</p>
         @else
-            <table>
+            <table class="w-full">
                 <thead>
                     <tr>
+                        <th class="py-2 px-4"></th>
                         <th class="py-2 px-4">Name</th>
                         <th class="py-2 px-4"># Units</th>
                         <th class="py-2 px-4">Status</th>
@@ -23,6 +24,9 @@
                         <tbody>
                             @foreach ($neighborhoods as $neighborhood)
                                 <tr>
+                                    <td class="py-2 px-4">
+                                        <img src="{{ asset($neighborhood->pics->first()->filename) }}" alt="{{ $neighborhood->pics->first()->alt ? 'Picture of '. $neighborhood->name : '' }}" width="90">
+                                    </td>
                                     <td class="py-2 px-4">
                                         <a href="{{ route('admin.neighborhoods.show', $neighborhood->slug) }}" class="underline text-blue-400">{{ $neighborhood->name }}</a>
                                     </td>
