@@ -8,7 +8,7 @@
             <div class="items-end">
             </div>
         </div>
-        <form action="{{ route('admin.units.update', $unit) }}" method="post">
+        <form action="{{ route('admin.units.update', $unit->slug) }}" method="post" enctype="multipart/form-data">
             @csrf
             @method('PATCH')
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">

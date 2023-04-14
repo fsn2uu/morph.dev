@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pic;
 use App\Models\Unit;
-use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class UnitController extends Controller
 {
@@ -83,8 +85,8 @@ class UnitController extends Controller
                     'company_id' => Auth::user()->company_id,
                     'filename' => 'storage/'.$path,
                     'order' => 0,
-                    'alt' => '',
-                    'title' => '',
+                    'alt' => 'Picture of ' . $unit->name,
+                    'title' => 'Picture of ' . $unit->name,
                 ]);
                 $unit->pics()->save($picModel);
             }
@@ -138,7 +140,29 @@ class UnitController extends Controller
         
         $request->merge(['slug' => Str::of($request->name)->slug('-')]);
 
-        $unit->update($request->except(['_token']));
+        $unit->update($request->except(['_token', 'pics']));
+
+        if($request->has('pics'))
+        {
+            foreach($request->pics as $pic)
+            {
+                $name = $pic->getClientOriginalName();
+                $extension = $pic->getClientOriginalExtension();
+
+                $path = Storage::putFileAs(
+                    'units/'.$unit->id, $pic, $name, 'public'
+                );
+
+                $picModel = new Pic([
+                    'company_id' => Auth::user()->company_id,
+                    'filename' => 'storage/'.$path,
+                    'order' => 0,
+                    'alt' => 'Picture of ' . $unit->name,
+                    'title' => 'Picture of ' . $unit->name,
+                ]);
+                $unit->pics()->save($picModel);
+            }
+        }
 
         return redirect()->route('admin.units.edit', $unit->slug);
     }
