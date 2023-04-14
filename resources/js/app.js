@@ -1,4 +1,6 @@
+
 import './bootstrap';
+import './vue';
 
 import Alpine from 'alpinejs';
 
