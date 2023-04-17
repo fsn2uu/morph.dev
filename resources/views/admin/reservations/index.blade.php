@@ -10,7 +10,7 @@
             </div>
         </div>
 
-        @include('admin.reservations._list')
+        @include('admin.reservations._parts.table')
     </section>
 
 @endsection

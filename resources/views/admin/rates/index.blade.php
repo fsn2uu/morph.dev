@@ -11,18 +11,7 @@
         </div>
 
         @if ($rate_tables->count() > 0)
-            <table>
-                <thead>
-                    <th>Title</th>
-                </thead>
-                <tbody>
-                    @foreach($rate_tables as $table)
-                        <tr>
-                            <td><a href="{{ route('admin.rates.edit', $table->id) }}" class="text-blue-400 underline">{{ $table->name }}</a></td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
+            @include('admin.rates._parts.table')
         @else
             <p class="text-center">There are no rate tables to display.</p>
         @endif
