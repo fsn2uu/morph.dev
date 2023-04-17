@@ -16,6 +16,9 @@
                 <x-navigation></x-navigation>
             @endif
         </header>
+        @if (Session::has('expired'))
+            {{ Session::get('expired') }}
+        @endif
         @yield('content')
         <footer class="bg-charcoal text-white px-20 py-10">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
