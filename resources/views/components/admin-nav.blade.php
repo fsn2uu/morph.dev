@@ -12,7 +12,7 @@
             <a href="{{ route('admin.reservations.index') }}" class="nav">Reservations</a>
             <a href="{{ route('admin.rates.index') }}" class="nav">Rates</a>
             <a href="{{ route('admin.travelers.index') }}" class="nav">Travelers</a>
-            <a href="#" class="nav">Specials</a>
+            <a href="{{ route('admin.specials.index') }}" class="nav">Specials</a>
             <a href="#" class="nav">Tasks</a>
 
             <div class="hidden sm:flex sm:items-center sm:ml-6">
@@ -66,7 +66,7 @@
             <a href="{{ route('admin.reservations.index') }}">Reservations</a>
             <a href="{{ route('admin.rates.index') }}">Rates</a>
             <a href="{{ route('admin.travelers.index') }}">Travelers</a>
-            <a href="#">Specials</a>
+            <a href="{{ route('admin.specials.index') }}">Specials</a>
             <a href="#">Tasks</a>
             <a href="{{ route('admin.users.index') }}">Users</a>
             <div class="sm:flex sm:items-center sm:ml-6">

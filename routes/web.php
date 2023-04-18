@@ -1,14 +1,15 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\NeighborhoodController;
+use App\Http\Controllers\RateController;
 use App\Http\Controllers\UnitController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\SignupController;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\SpecialController;
 use App\Http\Controllers\TravelerController;
 use App\Http\Controllers\ReservationController;
-use App\Http\Controllers\SignupController;
-use App\Http\Controllers\RateController;
+use App\Http\Controllers\NeighborhoodController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -55,6 +56,7 @@ Route::middleware(['auth'])->group(function(){
             Route::resource('travelers', TravelerController::class);
             Route::resource('reservations', ReservationController::class);
             Route::resource('rates', RateController::class);
+            Route::resource('specials', SpecialController::class);
             Route::prefix('settings')->group(function(){
                 Route::controller(CompanyController::class)->group(function () {
                     Route::get('company', 'edit')->name('settings.company');
