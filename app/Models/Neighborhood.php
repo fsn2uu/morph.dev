@@ -39,6 +39,14 @@ class Neighborhood extends Model
         });
     }
 
+    public function scopeWithAvailableUnitsBetween($query, $start_date, $end_date)
+    {
+        return $query->whereDoesntHave('units.reservations', function ($subquery) use ($start_date, $end_date) {
+            $subquery->where('start_date', '<=', $end_date)
+                        ->where('end_date', '>=', $start_date);
+        });
+    }
+
     public function units()
     {
         return $this->hasMany(Unit::class);

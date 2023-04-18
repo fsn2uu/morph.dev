@@ -10,11 +10,8 @@
             </div>
         </div>
 
-        @if ($rate_tables->count() > 0)
-            @include('admin.rates._parts.table')
-        @else
-            <p class="text-center">There are no rate tables to display.</p>
-        @endif
+        @include('admin.rates._parts.table')
+        
     </section>
 
 @endsection

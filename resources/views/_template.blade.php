@@ -9,13 +9,15 @@
         @stack('head')
     </head>
     <body class="bg-[#f2f2f2]" id="app">
-        <header class="bg-charcoal">
-            @if (Request::segment(1) == 'admin')
-                <x-admin-nav></x-admin-nav>
-            @else
-                <x-navigation></x-navigation>
-            @endif
-        </header>
+        <div class="bg-gray-100 pb-1 border-b-2 border-transparent bg-gradient-to-r from-yellow-300 to-yellow-600 bg-repeat-x bg-bottom bg-contain">
+            <header class="bg-charcoal">
+                @if (Request::segment(1) == 'admin')
+                    <x-admin-nav></x-admin-nav>
+                @else
+                    <x-navigation></x-navigation>
+                @endif
+            </header>
+        </div>
         @if (Session::has('expired'))
             {{ Session::get('expired') }}
         @endif

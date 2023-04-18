@@ -10,11 +10,7 @@
             </div>
         </div>
 
-        @if ($travelers->count() > 0)
-            @include('admin.travelers._parts.table')
-        @else
-            <p class="text-center">There are no travelers to display.</p>
-        @endif
+        @include('admin.travelers._parts.table')
     </section>
 
 @endsection

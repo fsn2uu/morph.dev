@@ -10,7 +10,7 @@
             </div>
         </div>
 
-        <div class="bg-white rounded-lg shadow p-6">
+        <div class="bg-white rounded-lg shadow p-6 mb-10">
             <form action="{{ route('admin.units.index') }}" method="GET" class="grid grid-cols-1 gap-4">
               <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
@@ -58,12 +58,7 @@
             </form>
           </div>
 
-
-        @if ($units->count() < 1)
-            <p class="text-center">There are no units to show.</p>
-        @else
-            @include('admin.units._parts.table')
-        @endif
+        @include('admin.units._parts.table')
     </section>
     
 @endsection

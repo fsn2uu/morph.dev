@@ -4,6 +4,9 @@
             <div class="p-6 sm:px-20 bg-white border-b border-gray-200">
                 <form method="POST" action="{{ $verb == 'Create' ? route('admin.specials.store') : route('admin.specials.update', $special) }}">
                     @csrf
+                    @if ($verb == 'Edit')
+                        @method('PATCH')
+                    @endif
                     <div class="mb-4">
                         <label class="block text-gray-700 font-bold mb-2" for="name">
                             Name

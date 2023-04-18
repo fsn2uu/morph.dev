@@ -8635,6 +8635,9 @@ select {
 .mr-4 {
   margin-right: 1rem;
 }
+.mb-10 {
+  margin-bottom: 2.5rem;
+}
 .block {
   display: block;
 }
@@ -8993,6 +8996,10 @@ select {
   --tw-border-opacity: 1;
   border-color: rgb(66 153 225 / var(--tw-border-opacity));
 }
+.border-yellow-500 {
+  --tw-border-opacity: 1;
+  border-color: rgb(236 201 75 / var(--tw-border-opacity));
+}
 .border-r-charcoal {
   --tw-border-opacity: 1;
   border-right-color: rgb(35 31 32 / var(--tw-border-opacity));
@@ -9078,8 +9085,25 @@ select {
 .bg-hero {
   background-image: url('https://morph.dev:8890/assets/pexels-ruvim-miksanskiy-2335167.jpeg');
 }
+.bg-gradient-to-r {
+  background-image: linear-gradient(to right, var(--tw-gradient-stops));
+}
+.from-yellow-300 {
+  --tw-gradient-from: #faf089 var(--tw-gradient-from-position);
+  --tw-gradient-from-position:  ;
+  --tw-gradient-to: rgb(250 240 137 / 0)  var(--tw-gradient-from-position);
+  --tw-gradient-to-position:  ;
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+.to-yellow-600 {
+  --tw-gradient-to: #d69e2e var(--tw-gradient-to-position);
+  --tw-gradient-to-position:  ;
+}
 .bg-cover {
   background-size: cover;
+}
+.bg-contain {
+  background-size: contain;
 }
 .bg-fixed {
   background-attachment: fixed;
@@ -9089,6 +9113,9 @@ select {
 }
 .bg-no-repeat {
   background-repeat: no-repeat;
+}
+.bg-repeat-x {
+  background-repeat: repeat-x;
 }
 .fill-current {
   fill: currentColor;
@@ -9218,6 +9245,9 @@ select {
 }
 .pb-4 {
   padding-bottom: 1rem;
+}
+.pb-5 {
+  padding-bottom: 1.25rem;
 }
 .text-left {
   text-align: left;

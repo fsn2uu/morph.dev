@@ -9,11 +9,7 @@
                 <a href="{{ route('admin.neighborhoods.create') }}" class="bg-gold mx-auto md:mx-0 hover:bg-darkGold text-black hover:text-white py-3 px-4 decoration-0 flex-nowrap">Create</a>
             </div>
         </div>
-        @if ($neighborhoods->count() < 1)
-            <p class="text-center">There are no neighborhoods to show.</p>
-        @else
-            @include('admin.neighborhoods._parts.table')
-        @endif
+        @include('admin.neighborhoods._parts.table')
     </section>
     
 @endsection
