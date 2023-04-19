@@ -5,6 +5,7 @@
                 @if ($specials->count() > 0)
                     <table class="w-full">
                         <thead>
+                            <th class="py-2 px-4">Name</th>
                             <th class="py-2 px-4">Unit</th>
                             <th class="py-2 px-4">Neighborhood</th>
                             <th class="py-2 px-4">Amount</th>
@@ -15,6 +16,7 @@
                         <tbody>
                             @foreach ($specials as $special)
                                 <tr>
+                                    <td class="py-2 px-4">{{ @$special->name ?:'' }}</td>
                                     <td class="py-2 px-4">{{ @$special->unit->name ?:'' }}</td>
                                     <td class="py-2 px-4">{{ @$special->neighborhood->name ?:'' }}</td>
                                     <td class="py-2 px-4 text-center">{{ $special->type == 'fixed' ? '$' : '' }}{{ $special->amount }}{{ $special->type = 'percentage' ? '%' : '' }}</td>

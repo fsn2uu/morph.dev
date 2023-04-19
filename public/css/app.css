@@ -9004,6 +9004,14 @@ select {
   --tw-border-opacity: 1;
   border-right-color: rgb(35 31 32 / var(--tw-border-opacity));
 }
+.border-b-darkGold {
+  --tw-border-opacity: 1;
+  border-bottom-color: rgb(170 129 0 / var(--tw-border-opacity));
+}
+.border-b-yellow-600 {
+  --tw-border-opacity: 1;
+  border-bottom-color: rgb(214 158 46 / var(--tw-border-opacity));
+}
 .bg-\[\#f2f2f2\] {
   --tw-bg-opacity: 1;
   background-color: rgb(242 242 242 / var(--tw-bg-opacity));
@@ -9249,6 +9257,9 @@ select {
 .pb-5 {
   padding-bottom: 1.25rem;
 }
+.pb-2 {
+  padding-bottom: 0.5rem;
+}
 .text-left {
   text-align: left;
 }
@@ -9488,6 +9499,11 @@ select {
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
 }
+.transition-colors {
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
 .duration-150 {
   transition-duration: 150ms;
 }
@@ -9496,6 +9512,9 @@ select {
 }
 .duration-75 {
   transition-duration: 75ms;
+}
+.duration-300 {
+  transition-duration: 300ms;
 }
 .ease-in {
   transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
@@ -9663,6 +9682,23 @@ select {
   .hover\:bg-red-700:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(197 48 48 / var(--tw-bg-opacity));
+}
+  
+  .hover\:bg-gradient-to-r:hover {
+  background-image: linear-gradient(to right, var(--tw-gradient-stops));
+}
+  
+  .hover\:from-yellow-400:hover {
+  --tw-gradient-from: #f6e05e var(--tw-gradient-from-position);
+  --tw-gradient-from-position:  ;
+  --tw-gradient-to: rgb(246 224 94 / 0)  var(--tw-gradient-from-position);
+  --tw-gradient-to-position:  ;
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+  
+  .hover\:to-red-500:hover {
+  --tw-gradient-to: #f56565 var(--tw-gradient-to-position);
+  --tw-gradient-to-position:  ;
 }
   
   .hover\:text-blue-500:hover {

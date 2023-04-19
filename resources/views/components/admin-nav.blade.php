@@ -6,14 +6,15 @@
                 <span class="text-2xl ml-2 text-white">Morph</span>
             </a>
         </div>
+        
         <div class="hidden md:flex space-x-6 items-baseline text-white">
-            <a href="{{ route('admin.neighborhoods.index') }}" class="nav">Neighborhoods</a>
-            <a href="{{ route('admin.units.index') }}" class="nav">Units</a>
-            <a href="{{ route('admin.reservations.index') }}" class="nav">Reservations</a>
-            <a href="{{ route('admin.rates.index') }}" class="nav">Rates</a>
-            <a href="{{ route('admin.travelers.index') }}" class="nav">Travelers</a>
-            <a href="{{ route('admin.specials.index') }}" class="nav">Specials</a>
-            <a href="#" class="nav">Tasks</a>
+            <a href="{{ route('admin.neighborhoods.index') }}" class="nav {{ Request::segment(2) == 'neighborhoods' ? 'border-b-2 border-b-yellow-600 pb-2' : '' }}">Neighborhoods</a>
+            <a href="{{ route('admin.units.index') }}" class="nav {{ Request::segment(2) == 'units' ? 'border-b-2 border-b-yellow-600 pb-2' : '' }}">Units</a>
+            <a href="{{ route('admin.reservations.index') }}" class="nav {{ Request::segment(2) == 'reservations' ? 'border-b-2 border-b-yellow-600 pb-2' : '' }}">Reservations</a>
+            <a href="{{ route('admin.rates.index') }}" class="nav {{ Request::segment(2) == 'rates' ? 'border-b-2 border-b-yellow-600 pb-2' : '' }}">Rates</a>
+            <a href="{{ route('admin.travelers.index') }}" class="nav {{ Request::segment(2) == 'travelers' ? 'border-b-2 border-b-yellow-600 pb-2' : '' }}">Travelers</a>
+            <a href="{{ route('admin.specials.index') }}" class="nav {{ Request::segment(2) == 'specials' ? 'border-b-2 border-b-yellow-600 pb-2' : '' }}">Specials</a>
+            <a href="#" class="nav {{ Request::segment(2) == 'tasks' ? 'border-b-2 border-b-yellow-600 pb-2' : '' }}">Tasks</a>
 
             <div class="hidden sm:flex sm:items-center sm:ml-6">
                 <x-dropdown align="right" width="48">
