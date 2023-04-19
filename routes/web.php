@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RateController;
+use App\Http\Controllers\TaskController;
 use App\Http\Controllers\UnitController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SignupController;
@@ -57,6 +58,7 @@ Route::middleware(['auth'])->group(function(){
             Route::resource('reservations', ReservationController::class);
             Route::resource('rates', RateController::class);
             Route::resource('specials', SpecialController::class);
+            Route::resource('tasks', TaskController::class);
             Route::prefix('settings')->group(function(){
                 Route::controller(CompanyController::class)->group(function () {
                     Route::get('company', 'edit')->name('settings.company');

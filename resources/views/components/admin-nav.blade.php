@@ -14,7 +14,7 @@
             <a href="{{ route('admin.rates.index') }}" class="nav {{ Request::segment(2) == 'rates' ? 'border-b-2 border-b-yellow-600 pb-2' : '' }}">Rates</a>
             <a href="{{ route('admin.travelers.index') }}" class="nav {{ Request::segment(2) == 'travelers' ? 'border-b-2 border-b-yellow-600 pb-2' : '' }}">Travelers</a>
             <a href="{{ route('admin.specials.index') }}" class="nav {{ Request::segment(2) == 'specials' ? 'border-b-2 border-b-yellow-600 pb-2' : '' }}">Specials</a>
-            <a href="#" class="nav {{ Request::segment(2) == 'tasks' ? 'border-b-2 border-b-yellow-600 pb-2' : '' }}">Tasks</a>
+            <a href="{{ route('admin.tasks.index') }}" class="nav {{ Request::segment(2) == 'tasks' ? 'border-b-2 border-b-yellow-600 pb-2' : '' }}">Tasks</a>
 
             <div class="hidden sm:flex sm:items-center sm:ml-6">
                 <x-dropdown align="right" width="48">
@@ -68,7 +68,7 @@
             <a href="{{ route('admin.rates.index') }}">Rates</a>
             <a href="{{ route('admin.travelers.index') }}">Travelers</a>
             <a href="{{ route('admin.specials.index') }}">Specials</a>
-            <a href="#">Tasks</a>
+            <a href="{{ route('admin.tasks.index') }}">Tasks</a>
             <a href="{{ route('admin.users.index') }}">Users</a>
             <div class="sm:flex sm:items-center sm:ml-6">
                 <x-dropdown align="right" width="48">

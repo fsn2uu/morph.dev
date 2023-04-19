@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Task;
+use App\Models\Unit;
+use App\Models\Neighborhood;
 use Illuminate\Http\Request;
 
 class TaskController extends Controller
@@ -10,9 +12,12 @@ class TaskController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $tasks = Task::search($request)->paginate(20);
+
+        return view('admin.tasks.index')
+            ->withTasks($tasks);
     }
 
     /**
@@ -20,7 +25,9 @@ class TaskController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.tasks.create')
+            ->withNeighborhoods(Neighborhood::all())
+            ->withUnits(Unit::all());
     }
 
     /**
@@ -28,7 +35,9 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $task = Task::create($request->except(['_token']));
+
+        return redirect()->route('admin.tasks.edit', $task);
     }
 
     /**
@@ -36,7 +45,8 @@ class TaskController extends Controller
      */
     public function show(Task $task)
     {
-        //
+        return view('admin.tasks.show')
+            ->withTask($task);
     }
 
     /**
@@ -44,7 +54,8 @@ class TaskController extends Controller
      */
     public function edit(Task $task)
     {
-        //
+        return view('admin.tasks.edit')
+            ->withTask($task);
     }
 
     /**
@@ -52,7 +63,9 @@ class TaskController extends Controller
      */
     public function update(Request $request, Task $task)
     {
-        //
+        $task->update($request->except(['_token', '_method']));
+
+        return redirect()->route('admin.tasks.edit', $task);
     }
 
     /**
@@ -60,6 +73,8 @@ class TaskController extends Controller
      */
     public function destroy(Task $task)
     {
-        //
+        $task->delete();
+
+        return redirect()->route('admin.tasks.index');
     }
 }
