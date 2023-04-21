@@ -39,5 +39,4 @@
         <img src="{{ asset('assets/pexels-ruslan-konev-7011768.jpeg') }}" alt="" class="inline float-right -z-1 w-2/3"> --}}
     </body>
     <script src="{{ mix('js/app.js') }}" defer></script>
-    <script src="{{ mix('js/vue.js') }}" defer></script>
 </html>

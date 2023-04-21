@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pic;
+use App\Models\Amenity;
 use App\Models\Neighborhood;
 use Illuminate\Http\Request;
-use App\Http\Resources\NeighborhoodResource;
+use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
-use App\Models\Pic;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
+use App\Http\Resources\NeighborhoodResource;
 
 class NeighborhoodController extends Controller
 {
@@ -30,7 +31,8 @@ class NeighborhoodController extends Controller
      */
     public function create()
     {
-        return view('admin.neighborhoods.create');
+        return view('admin.neighborhoods.create')
+            ->withAmenities(Amenity::all());
     }
 
     /**
@@ -56,7 +58,12 @@ class NeighborhoodController extends Controller
 
         //dd($validation);
 
-        $neighborhood = Neighborhood::create($request->except(['_token', 'pics']));
+        $neighborhood = Neighborhood::create($request->except(['_token', 'pics', 'amenities']));
+
+        if($request->has('amenities'))
+        {
+            $neighborhood->amenities()->syncWithPivotValues($request->amenities, ['neighborhood_id']);
+        }
 
         if($request->has('pics'))
         {
@@ -106,7 +113,9 @@ class NeighborhoodController extends Controller
     {
         $neighborhood = Neighborhood::where('slug', $slug)->firstOrFail();
 
-        return view('admin.neighborhoods.edit', ['neighborhood' => $neighborhood]);
+        $amenities = Amenity::where('type', 'neighborhood')->get();
+
+        return view('admin.neighborhoods.edit', ['neighborhood' => $neighborhood, 'amenities' => $amenities]);
     }
 
     /**
@@ -133,7 +142,13 @@ class NeighborhoodController extends Controller
 
         $neighborhood = Neighborhood::where('slug', $slug)->firstOrFail();
 
-        $neighborhood->update($request->except(['_token', '_method', 'pics', 'existing_pics']));
+        $neighborhood->update($request->except(['_token', '_method', 'pics', 'existing_pics', 'amenities']));
+
+
+        if($request->has('amenities'))
+        {
+            $neighborhood->amenities()->attach($request->amenities, ['neighborhood_id' => $neighborhood->id]);
+        }
 
         if($request->has('existing_pics'))
         {

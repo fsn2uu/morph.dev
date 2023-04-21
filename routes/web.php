@@ -6,6 +6,7 @@ use App\Http\Controllers\TaskController;
 use App\Http\Controllers\UnitController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SignupController;
+use App\Http\Controllers\AmenityController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\SpecialController;
 use App\Http\Controllers\TravelerController;
@@ -59,6 +60,7 @@ Route::middleware(['auth'])->group(function(){
             Route::resource('rates', RateController::class);
             Route::resource('specials', SpecialController::class);
             Route::resource('tasks', TaskController::class);
+            Route::resource('amenities', AmenityController::class);
             Route::prefix('settings')->group(function(){
                 Route::controller(CompanyController::class)->group(function () {
                     Route::get('company', 'edit')->name('settings.company');

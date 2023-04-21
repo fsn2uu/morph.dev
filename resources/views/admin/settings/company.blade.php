@@ -1,5 +1,6 @@
-<x-app-layout>
+@extends('_template')
 
+@section('content')
     <section id="content-body" class="md:w-[65%] md:mx-auto py-10 px-10 md:px-0 min-h-[60vh]">
         <div class="flex justify-between">
             <h1 class="text-contrastGold text-5xl mb-4">Settings for {{ $company->name }}</h1>
@@ -23,7 +24,7 @@
                 <select name="plan" id="plan" required class="shadow appearance-none border border-[#ccc] mb-2 rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline">
                     <option value=""></option>
                     @foreach ($prices['data'] as $price)
-                        <option value="{{ $price['id'] }}" {{ \Request::get('plan') == $price['id'] ? 'selected' : (old('plan') == $price['id'] ? 'selected' : '') }}>{{ $price['nickname'] }}</option>
+                        <option value="{{ $price['id'] }}" {{ \Request::get('plan') == $price['id'] ? 'selected' :  (auth()->user()->company->hasStripeSubscription($price['nickname']) ? 'selected' : (old('plan') == $price['id'] ? 'selected' : '')) }}>{{ $price['nickname'] }}</option>
                     @endforeach
                 </select>
             </label>
@@ -52,6 +53,62 @@
                 @endforeach
             </tbody>
         </table>
+
+        <div id="api-key-container" class="border-2 border-gray-300 p-4 rounded-lg cursor-pointer">
+            <div class="flex justify-between items-center mb-4">
+              <h2 class="text-lg font-semibold">{{ env('APP_NAME') }} API Key</h2>
+              <button id="copy-api-key-button" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
+                Copy
+              </button>
+            </div>
+            <p id="api-key" class="text-gray-700 font-mono">{{ Auth::user()->company->api_token }}</p>
+          </div>
+          
     </section>
 
-</x-app-layout>
+@endsection
+
+@push('scripts')
+    <script>
+        const apiKeyContainer = document.getElementById('api-key-container');
+        const copyApiKeyButton = document.getElementById('copy-api-key-button');
+        const apiKey = document.getElementById('api-key').textContent.trim();
+
+        apiKeyContainer.addEventListener('click', () => {
+            console.log('clicked the container')
+        navigator.clipboard.writeText(apiKey)
+            .then(() => {
+            const flashMessage = document.createElement('div');
+            flashMessage.textContent = 'Copied to Clipboard!';
+            flashMessage.classList.add('absolute', 'inset-x-0', 'top-0', 'bg-green-400', 'text-white', 'py-2', 'text-center', 'font-bold', 'rounded-lg');
+            apiKeyContainer.appendChild(flashMessage);
+            setTimeout(() => {
+                apiKeyContainer.removeChild(flashMessage);
+            }, 3000);
+            })
+            .catch(err => {
+            console.error('Failed to copy text: ', err);
+            });
+        });
+
+        copyApiKeyButton.addEventListener('click', () => {
+            console.log('clicked the button')
+        navigator.clipboard.writeText(apiKey)
+            .then(() => {
+            const flashMessage = document.createElement('div');
+            flashMessage.textContent = 'Copied to Clipboard!';
+            flashMessage.classList.add('absolute', 'inset-x-0', 'top-0', 'bg-green-400', 'text-white', 'py-2', 'text-center', 'font-bold', 'rounded-lg');
+            apiKeyContainer.appendChild(flashMessage);
+            setTimeout(() => {
+                apiKeyContainer.removeChild(flashMessage);
+            }, 3000);
+            })
+            .catch(err => {
+            console.error('Failed to copy text: ', err);
+            });
+        });
+
+
+    </script>
+        
+    @endpush

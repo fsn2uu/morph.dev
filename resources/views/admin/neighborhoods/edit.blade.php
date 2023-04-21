@@ -29,6 +29,24 @@
                 aria-selected="true">General</a>
             </li>
             <li class="nav-item" role="presentation">
+                <a href="#tabs-amenities" class="
+                nav-link
+                block
+                font-medium
+                text-xs
+                leading-tight
+                uppercase
+                border-x-0 border-t-0 border-b-2 border-transparent
+                px-6
+                py-3
+                my-2
+                hover:border-transparent hover:bg-gray-100
+                focus:border-transparent
+                active
+                " id="tabs-amenities-tab" data-bs-toggle="pill" data-bs-target="#tabs-amenities" role="tab" aria-controls="tabs-amenities"
+                aria-selected="true">Amenities</a>
+            </li>
+            <li class="nav-item" role="presentation">
                 <a href="#tabs-photos" class="
                 nav-link
                 block
@@ -104,28 +122,31 @@
             @method('PATCH')
         <div class="tab-content" id="tabs-tabContent">
             <div class="tab-pane fade show active" id="tabs-general" role="tabpanel" aria-labelledby="tabs-general-tab">
-                    <div>
-                        <label for="name" class="block">Name</label>
-                        <input type="text" name="name" id="name" value="{{ $neighborhood->name }}" class="shadow appearance-none border border-[#ccc] mb-2 rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline">
-                        @error('name')
-                            <span class="text-red-400">{{ $message }}</span>
-                        @enderror
-                    </div>
-                    <div>
-                        <label for="description" class="block">Description</label>
-                        <textarea name="description" id="description" class="shadow appearance-none border border-[#ccc] mb-2 rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline">{{ $neighborhood->description }}</textarea>
-                        @error('description')
-                            <span class="text-red-400">{{ $message }}</span>
-                        @enderror
-                    </div>
-                    <div>
-                        <label for="status" class="block">Status</label>
-                        <select name="status" id="status" class="shadow appearance-none border border-[#ccc] mb-4 rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline">
-                            <option {{ $neighborhood->status == 'Active' ? 'selected' : '' }}>Active</option>
-                            <option {{ $neighborhood->status == 'Draft' ? 'selected' : '' }}>Draft</option>
-                        </select>
-                    </div>
+                <div>
+                    <label for="name" class="block">Name</label>
+                    <input type="text" name="name" id="name" value="{{ $neighborhood->name }}" class="shadow appearance-none border border-[#ccc] mb-2 rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline">
+                    @error('name')
+                        <span class="text-red-400">{{ $message }}</span>
+                    @enderror
                 </div>
+                <div>
+                    <label for="description" class="block">Description</label>
+                    <textarea name="description" id="description" class="shadow appearance-none border border-[#ccc] mb-2 rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline">{{ $neighborhood->description }}</textarea>
+                    @error('description')
+                        <span class="text-red-400">{{ $message }}</span>
+                    @enderror
+                </div>
+                <div>
+                    <label for="status" class="block">Status</label>
+                    <select name="status" id="status" class="shadow appearance-none border border-[#ccc] mb-4 rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline">
+                        <option {{ $neighborhood->status == 'Active' ? 'selected' : '' }}>Active</option>
+                        <option {{ $neighborhood->status == 'Draft' ? 'selected' : '' }}>Draft</option>
+                    </select>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="tabs-amenities" role="tabpanel" aria-labelledby="tabs-amenities-tab">
+                @include('admin.neighborhoods._parts.amenities')
+            </div>
                 <div class="tab-pane fade" id="tabs-photos" role="tabpanel" aria-labelledby="tabs-photos-tab">
                     <div class="mb-5">
                         <label for="pics" class="block capitalize">Photos</label>

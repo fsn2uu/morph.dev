@@ -48,4 +48,26 @@ class Company extends Model
     {
         return $this->hasOne(RateTable::class);
     }
+
+    public function hasStripeSubscription($nickname)
+    {
+        $stripe = new \Stripe\StripeClient(
+            env('STRIPE_SECRET')
+        );
+        $info = $stripe->customers->retrieve(
+            $this->stripe_id,
+            []
+        );
+        
+        foreach ($info['subscriptions'] as $k => $subscription)
+        {
+            if ($subscription['status'] === 'active' && $subscription['items']['data'][$k]['plan']['nickname'] === $nickname)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
 }

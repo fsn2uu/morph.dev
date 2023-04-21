@@ -66,4 +66,9 @@ class Neighborhood extends Model
     {
         return $this->hasOne(RateTable::class);
     }
+
+    public function amenities()
+    {
+        return $this->belongsToMany(Amenity::class);
+    }
 }

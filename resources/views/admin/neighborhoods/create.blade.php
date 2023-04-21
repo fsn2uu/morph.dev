@@ -43,6 +43,9 @@
                         hover:file:text-white
                         ">
             </div>
+            <div>
+                @include('admin.neighborhoods._parts.amenities')
+            </div>
             <input type="submit" value="Create" class="bg-gold mx-auto mt-5 md:mx-0 hover:bg-darkGold text-black hover:text-white py-3 px-4 decoration-0 flex-nowrap">
         </form>
     </section>
