@@ -51,57 +51,50 @@
 
     {{-- all of this needs to be broken off, simplified, and cleaned up --}}
     <script>
-        function row_creator(random)
-        {
+        function row_creator(random, id, name, start_date, end_date, amount) {
+            // create a div element and set its id attribute
             const wrapper = document.createElement('div')
-            wrapper.setAttribute('id', random)
+            wrapper.id = random
 
+            // create a div element with a class attribute and append it to the wrapper
             const grid = document.createElement('div')
-            grid.setAttribute('class', 'grid grid-cols-1 md:grid-cols-5 gap-5 mb-5')
-
-            const grid1 = document.createElement('div')
-            const label_input1 = document.createElement('input')
-            label_input1.setAttribute('type', 'text')
-            label_input1.setAttribute('class', 'shadow appearance-none border border-[#ccc] mb-2 rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline')
-            label_input1.setAttribute('name', 'rates['+random+'][label]')
-            grid1.appendChild(label_input1)
-            grid.appendChild(grid1)
-
-            const grid2 = document.createElement('div')
-            const label_input2 = document.createElement('input')
-            label_input2.setAttribute('type', 'text')
-            label_input2.setAttribute('class', 'shadow appearance-none border border-[#ccc] mb-2 rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline')
-            label_input2.setAttribute('name', 'rates['+random+'][start_date]')
-            grid2.appendChild(label_input2)
-            grid.appendChild(grid2)
-
-            const grid3 = document.createElement('div')
-            const label_input3 = document.createElement('input')
-            label_input3.setAttribute('type', 'text')
-            label_input3.setAttribute('class', 'shadow appearance-none border border-[#ccc] mb-2 rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline')
-            label_input3.setAttribute('name', 'rates['+random+'][end_date]')
-            grid3.appendChild(label_input3)
-            grid.appendChild(grid3)
-
-            const grid4 = document.createElement('div')
-            const label_input4 = document.createElement('input')
-            label_input4.setAttribute('type', 'text')
-            label_input4.setAttribute('class', 'shadow appearance-none border border-[#ccc] mb-2 rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline')
-            label_input4.setAttribute('name', 'rates['+random+'][amount]')
-            label_input4.setAttribute('placeholder', '10000 = $100.00')
-            grid4.appendChild(label_input4)
-            grid.appendChild(grid4)
-
-            const grid5 = document.createElement('div')
-            const butt = document.createElement('a')
-            butt.setAttribute('class', 'bg-red-400 mx-auto mt-5 md:mx-0 hover:bg-red-600 text-black hover:text-white py-3 px-4 decoration-0 flex-nowrap')
-            const icon = document.createElement('i')
-            icon.setAttribute('class', "fa-solid fa-trash")
-            butt.appendChild(icon)
-            grid5.appendChild(butt)
-            grid.appendChild(grid5)
-
+            grid.className = 'grid grid-cols-1 md:grid-cols-5 gap-5 mb-5'
             wrapper.appendChild(grid)
+
+            // create a function to generate a div element with an input element inside
+            const createInputDiv = (name, id, value) => {
+                const div = document.createElement('div')
+                const input = document.createElement('input')
+                input.type = 'text'
+                input.className = 'shadow appearance-none border border-[#ccc] mb-2 rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline'
+                input.name = (id ? `rates[${id}][${name}]` : `rates[${random}][${name}]`)
+                if(value) input.value = value
+                div.appendChild(input)
+                return div
+            }
+
+            // create input divs for label, start_date, end_date, and amount
+            const labelDiv = createInputDiv('label', id, name)
+            const startDateDiv = createInputDiv('start_date', id, start_date)
+            const endDateDiv = createInputDiv('end_date', id, end_date)
+            const amountDiv = createInputDiv('amount', id, amount)
+            amountDiv.children[0].placeholder = '10000 = $100.00' // set the placeholder for the amount input
+
+            // create a delete button element and append it to a div element
+            const deleteDiv = document.createElement('div')
+            const deleteButton = document.createElement('a')
+            deleteButton.className = 'bg-red-400 mx-auto mt-5 md:mx-0 hover:bg-red-600 text-black hover:text-white py-3 px-4 decoration-0 flex-nowrap'
+            const deleteIcon = document.createElement('i')
+            deleteIcon.className = 'fa-solid fa-trash'
+            deleteButton.appendChild(deleteIcon)
+            deleteDiv.appendChild(deleteButton)
+
+            // append all the created div elements to the grid element
+            grid.appendChild(labelDiv)
+            grid.appendChild(startDateDiv)
+            grid.appendChild(endDateDiv)
+            grid.appendChild(amountDiv)
+            grid.appendChild(deleteDiv)
 
             return wrapper
         }
@@ -112,79 +105,80 @@
         }
 
         const rate_container = document.getElementById('rate_container')
-
-        rate_container.appendChild(row_creator(getRandomInteger()))
-
+        
         const adder = document.getElementById('adder')
         adder.addEventListener('click', function(e){
             e.preventDefault();
             rate_container.appendChild(row_creator(getRandomInteger()))
         })
+        
+        const rates = {!! $rates !!}
+        createRowsOnPageLoad(rates)
+
+        rate_container.appendChild(row_creator(getRandomInteger()))
 
         const units = {!! $units !!}
         const neighborhoods = {!! $neighborhoods !!}
         const attach_to = document.getElementById('attach_to')
+
+        function createRowsOnPageLoad(rates) {
+            const table = document.getElementById('attach_to');
+            console.log(rates)
+            rates.forEach(rate => {
+                const row = row_creator(null, rate.id, rate.name, rate.start_date, rate.end_date, rate.amount);
+                rate_container.appendChild(row);
+            });
+        }
+
         attach_to.addEventListener('change', function(){
-            if(this.value === 'Company')
-            {
-                if(document.contains(document.getElementById('units_wrapper')))
-                {
-                    document.getElementById('units_wrapper').remove()
-                }
-                if(document.contains(document.getElementById('neighborhoods_wrapper')))
-                {
-                    document.getElementById('neighborhoods_wrapper').remove()
-                }
-            }
-            else if(this.value === 'Neighborhood')
-            {
-                if(document.contains(document.getElementById('units_wrapper')))
-                {
-                    document.getElementById('units_wrapper').remove()
-                }
-                const neighborhoods_wrapper = document.createElement('div')
-                neighborhoods_wrapper.setAttribute('id', 'neighborhoods_wrapper')
-                const neighborhoods_label = document.createElement('label')
-                neighborhoods_label.setAttribute('class', 'block')
-                neighborhoods_label.innerHTML = 'Select a Neighborhood'
-                const neighborhoods_selector = document.createElement('select')
-                neighborhoods_selector.setAttribute('name', 'neighborhood_id')
-                neighborhoods_selector.setAttribute('class', 'shadow appearance-none border border-[#ccc] mb-2 rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline')
-                neighborhoods_selector.appendChild(document.createElement('option'))
-                neighborhoods.forEach(element => {
-                    let opt = document.createElement('option')
-                    opt.setAttribute('value', element.id)
-                    opt.innerHTML = element.name
-                    neighborhoods_selector.appendChild(opt)
-                });
-                neighborhoods_wrapper.appendChild(neighborhoods_label).appendChild(neighborhoods_selector)
+            const units_wrapper = document.getElementById('units_wrapper')
+            const neighborhoods_wrapper = document.getElementById('neighborhoods_wrapper')
+
+            if(units_wrapper) units_wrapper.remove()
+            if(neighborhoods_wrapper) neighborhoods_wrapper.remove()
+
+            if(this.value === 'Neighborhood') {
+                const neighborhoods_wrapper = createWrapper('neighborhoods_wrapper')
+                createLabel(neighborhoods_wrapper, 'Select a Neighborhood')
+                createSelector(neighborhoods_wrapper, neighborhoods, 'name', 'neighborhood_id')
                 attach_to.after(neighborhoods_wrapper)
-            }
-            else if(this.value === 'Unit')
-            {
-                if(document.contains(document.getElementById('neighborhoods_wrapper')))
-                {
-                    document.getElementById('neighborhoods_wrapper').remove()
-                }
-                const units_wrapper = document.createElement('div')
-                units_wrapper.setAttribute('id', 'units_wrapper')
-                const units_label = document.createElement('label')
-                units_label.setAttribute('class', 'block')
-                units_label.innerHTML = 'Select a Unit'
-                const units_selector = document.createElement('select')
-                units_selector.setAttribute('name', 'neighborhood_id')
-                units_selector.setAttribute('class', 'shadow appearance-none border border-[#ccc] mb-2 rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline')
-                units_selector.appendChild(document.createElement('option'))
-                units.forEach(element => {
-                    let opt = document.createElement('option')
-                    opt.setAttribute('value', element.id)
-                    opt.innerHTML = element.name
-                    units_selector.appendChild(opt)
-                });
-                units_wrapper.appendChild(units_label).appendChild(units_selector)
+            } else if(this.value === 'Unit') {
+                const units_wrapper = createWrapper('units_wrapper')
+                createLabel(units_wrapper, 'Select a Unit')
+                createSelector(units_wrapper, units, 'name', 'unit_id')
                 attach_to.after(units_wrapper)
             }
         })
+
+        function createWrapper(id) {
+            const wrapper = document.createElement('div')
+            wrapper.setAttribute('id', id)
+            return wrapper
+        }
+
+        function createLabel(wrapper, text) {
+            const label = document.createElement('label')
+            label.setAttribute('class', 'block')
+            label.innerHTML = text
+            wrapper.appendChild(label)
+        }
+
+        function createSelector(wrapper, data, labelProp, valueProp) {
+            const selector = document.createElement('select')
+            selector.setAttribute('name', valueProp)
+            selector.setAttribute('class', 'shadow appearance-none border border-[#ccc] mb-2 rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline')
+            selector.appendChild(document.createElement('option'))
+
+            data.forEach(element => {
+                const opt = document.createElement('option')
+                opt.setAttribute('value', element.id)
+                opt.innerHTML = element[labelProp]
+                selector.appendChild(opt)
+            })
+
+            wrapper.appendChild(selector)
+        }
+
     </script>
     
 @endpush

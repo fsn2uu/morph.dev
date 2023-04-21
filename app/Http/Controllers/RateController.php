@@ -91,11 +91,13 @@ class RateController extends Controller
         $rate_table = RateTable::find($id);
         $neighborhoods = Neighborhood::all()->toJson();
         $units = Unit::all()->toJson();
+        $rates = $rate_table->rates->toJson();
         
         return view('admin.rates.edit', [
             'rate_table' => $rate_table,
             'units' => $units,
             'neighborhoods' => $neighborhoods,
+            'rates' => $rates,
         ]);
     }
 
