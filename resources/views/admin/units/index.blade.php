@@ -108,12 +108,19 @@ advancedSearchLink.addEventListener('click', (event) => {
       section.style.height = `${height}px`;
     });
 
-    if (elapsed < animationDuration) {
+    if (elapsed >= animationDuration) {
+      // Show the inputs after the animation is complete
+      const inputs = document.querySelectorAll('#advancedSearchOptions input');
+      inputs.forEach((input) => {
+        input.style.display = 'block';
+      });
+    } else {
       window.requestAnimationFrame(animate);
     }
   };
 
   window.requestAnimationFrame(animate);
 });
+
 </script>
 @endpush
