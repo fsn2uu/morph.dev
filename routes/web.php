@@ -13,6 +13,9 @@ use App\Http\Controllers\SpecialController;
 use App\Http\Controllers\TravelerController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\NeighborhoodController;
+use App\Http\Controllers\Settings\Gateway\BankController;
+use App\Http\Controllers\Settings\Gateway\PersonController;
+use App\Http\Controllers\Settings\Gateway\TransferController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -62,33 +65,15 @@ Route::middleware(['auth'])->group(function(){
             Route::resource('specials', SpecialController::class);
             Route::resource('tasks', TaskController::class);
             Route::resource('amenities', AmenityController::class);
-            Route::prefix('settings')->group(function(){
+            Route::prefix('settings')->name('settings.')->group(function(){
                 Route::controller(CompanyController::class)->group(function () {
-                    Route::get('company', 'edit')->name('settings.company');
-                    Route::post('company', 'update')->name('settings.company');
+                    Route::get('company', 'edit')->name('company');
+                    Route::post('company', 'update')->name('company');
                 });
-            });
-            Route::prefix('payment-gateway-settings')->group(function(){
-                Route::prefix('persons')->group(function(){
-                    Route::controller(GatewayController::class)->group(function(){
-                    Route::get('/', 'personsIndex')->name('gateway.persons.index');
-                    Route::get('/create', 'personsCreate')->name('gateway.persons.create');
-                    Route::post('/create', 'personsStore')->name('gateway.persons.store');
-                    Route::get('/{user}', 'personsShow')->name('gateway.persons.show');
-                    Route::get('/{user}/edit', 'personsEdit')->name('gateway.persons.edit');
-                    Route::patch('/{user}/update', 'personsUpdate')->name('gateway.persons.update');
-                    Route::delete('/{user}', 'personsDelete')->name('gateway.persons.destroy');
-                    });
-                });
-                Route::prefix('banks')->group(function(){
-                    Route::controller(GatewayController::class)->group(function(){
-                    Route::get('/', 'banksIndex')->name('gateway.banks.index');
-                    Route::get('/create', 'banksCreate')->name('gateway.banks.create');
-                    Route::post('/create', 'banksStore')->name('gateway.banks.store');
-                    Route::get('/{user}/edit', 'banksEdit')->name('gateway.banks.edit');
-                    Route::patch('/{user}/update', 'banksUpdate')->name('gateway.banks.update');
-                    Route::delete('/{user}', 'banksDelete')->name('gateway.banks.destroy');
-                    });
+                Route::prefix('payment-gateway')->name('gateway.')->group(function(){
+                    Route::resource('banks', BankController::class);
+                    Route::resource('persons', PersonController::class);
+                    Route::resource('transfers', TransferController::class)->only(['index', 'show']);
                 });
             });
         });

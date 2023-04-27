@@ -6,7 +6,7 @@
         <div class="flex justify-between">
             <h1 class="text-contrastGold text-5xl mb-4">Persons</h1>
             <div class="items-end">
-                <a href="{{ route('admin.gateway.persons.create') }}" class="bg-gold mx-auto md:mx-0 hover:bg-darkGold text-black hover:text-white py-3 px-4 decoration-0 flex-nowrap">Create</a>
+                <a href="{{ route('admin.settings.gateway.persons.create') }}" class="bg-gold mx-auto md:mx-0 hover:bg-darkGold text-black hover:text-white py-3 px-4 decoration-0 flex-nowrap">Create</a>
             </div>
         </div>
 

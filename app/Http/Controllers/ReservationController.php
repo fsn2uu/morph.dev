@@ -57,12 +57,13 @@ class ReservationController extends Controller
             'number' => 'required_if:type,to,The number field is required when type is `Traveler Occupied`.',
             'exp_month' => 'required_if:type,to,The expiration month field is required when type is `Traveler Occupied`.',
             'exp_year' => 'required_if:type,to,The expiration year field is required when type is `Traveler Occupied`.',
-            'cvv' => 'required_if:type,to,The CVV field is required when type is `Traveler Occupied`.',
+            'cvc' => 'required_if:type,to,The CVC field is required when type is `Traveler Occupied`.',
         ]);
 
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator);
         }
+
 
         //MOVE TRAVELERS TO A SERVICE
         if($request->has('traveler'))
@@ -141,8 +142,8 @@ class ReservationController extends Controller
                 'description' => "$traveler->first, $traveler->last - Reservation",
             ]);
 
-            $request->merge(['stripe_charge_id', $charge->id]);
-            $request->merge(['amount_charged', $rental_fee]);
+            $request->merge(['stripe_charge_id' => $charge->id]);
+            $request->merge(['amount_charged' => $rental_fee]);
     
             //transfer
             $transfee = ($rental_fee * .0029) + .30;

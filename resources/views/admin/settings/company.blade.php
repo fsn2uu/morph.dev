@@ -18,7 +18,7 @@
         </ul>
 
         <p>Change Plan to:</p>
-        <form action="{{ route('admin.settings.company', $company) }}" method="post">
+        {{-- <form action="{{ route('admin.settings.company', $company) }}" method="post">
             @csrf
             <label for="plan" class="block mb-5">Plan <span class="text-red-400">*</span>
                 <select name="plan" id="plan" required class="shadow appearance-none border border-[#ccc] mb-2 rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline">
@@ -29,7 +29,7 @@
                 </select>
             </label>
             <input type="submit" value="save">
-        </form>
+        </form> --}}
 
         <h2 class="text-4xl mb-4 text-contrastGold">Banks</h2>
         <p class="mb-5">
@@ -63,6 +63,24 @@
             </div>
             <p id="api-key" class="text-gray-700 font-mono">{{ Auth::user()->company->api_token }}</p>
           </div>
+
+        <div class="flex justify-between">
+            <div class="py-2 px-4 items-center">
+                <a href="{{ route('admin.settings.gateway.banks.index') }}">
+                    <i class="fa-solid fa-building-columns fa-2xl mr-5"></i>
+                </a>
+            </div>
+            <div class="py-2 px-4">
+                <a href="{{ route('admin.settings.gateway.persons.index') }}">
+                    <i class="fa-solid fa-user fa-2xl mr-5"></i>
+                </a>
+            </div>
+            <div class="py-2 px-4">
+                <a href="{{ route('admin.settings.gateway.transfers.index') }}">
+                    <i class="fa-solid fa-money-bill-transfer fa-2xl mr-5"></i>
+                </a>
+            </div>
+        </div>
           
     </section>
 

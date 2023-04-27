@@ -49,11 +49,11 @@
                                             $user = App\Models\User::where('stripe_id', $person->id)->first();
                                         @endphp
                                         @if($user)
-                                            <a href="{{ route('admin.gateway.persons.edit', $user) }}" class="text-white bg-blue-600 hover:bg-blue-800 p-2 pr-1 mr-2 rounded-sm">
+                                            <a href="{{ route('admin.settings.gateway.persons.edit', $user) }}" class="text-white bg-blue-600 hover:bg-blue-800 p-2 pr-1 mr-2 rounded-sm">
                                                 <i class="fa-solid fa-pen-to-square"></i>
                                             </a>
                                         @endif
-                                            <form action="{{ route('admin.gateway.persons.destroy', $person->id) }}" method="post" class="inline" onsubmit="return confirm('Are you sure?')">
+                                            <form action="{{ route('admin.settings.gateway.persons.destroy', $person->id) }}" method="post" class="inline" onsubmit="return confirm('Are you sure?')">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button class="text-white bg-red-600 hover:bg-red-800 px-2 py-1 rounded-sm">
