@@ -8,6 +8,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\SignupController;
 use App\Http\Controllers\AmenityController;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\GatewayController;
 use App\Http\Controllers\SpecialController;
 use App\Http\Controllers\TravelerController;
 use App\Http\Controllers\ReservationController;
@@ -65,6 +66,29 @@ Route::middleware(['auth'])->group(function(){
                 Route::controller(CompanyController::class)->group(function () {
                     Route::get('company', 'edit')->name('settings.company');
                     Route::post('company', 'update')->name('settings.company');
+                });
+            });
+            Route::prefix('payment-gateway-settings')->group(function(){
+                Route::prefix('persons')->group(function(){
+                    Route::controller(GatewayController::class)->group(function(){
+                    Route::get('/', 'personsIndex')->name('gateway.persons.index');
+                    Route::get('/create', 'personsCreate')->name('gateway.persons.create');
+                    Route::post('/create', 'personsStore')->name('gateway.persons.store');
+                    Route::get('/{user}', 'personsShow')->name('gateway.persons.show');
+                    Route::get('/{user}/edit', 'personsEdit')->name('gateway.persons.edit');
+                    Route::patch('/{user}/update', 'personsUpdate')->name('gateway.persons.update');
+                    Route::delete('/{user}', 'personsDelete')->name('gateway.persons.destroy');
+                    });
+                });
+                Route::prefix('banks')->group(function(){
+                    Route::controller(GatewayController::class)->group(function(){
+                    Route::get('/', 'banksIndex')->name('gateway.banks.index');
+                    Route::get('/create', 'banksCreate')->name('gateway.banks.create');
+                    Route::post('/create', 'banksStore')->name('gateway.banks.store');
+                    Route::get('/{user}/edit', 'banksEdit')->name('gateway.banks.edit');
+                    Route::patch('/{user}/update', 'banksUpdate')->name('gateway.banks.update');
+                    Route::delete('/{user}', 'banksDelete')->name('gateway.banks.destroy');
+                    });
                 });
             });
         });

@@ -229,45 +229,6 @@
                             </div>
                             </div>
                         </div>
-  
-                      
-
-                      
-
-                    {{-- <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                            <label for="pics" class="block capitalize">Photos</label>
-                            <input type="file" name="pics[]" id="pics" multiple="multiple" class="block w-full text-sm
-                            file:mr-5 file:py-2 file:px-6
-                            file:border-0
-                            file:text-sm file:font-medium
-                            file:bg-gold file:text-black
-                            hover:file:cursor-pointer hover:file:bg-darkGold
-                            hover:file:text-white
-                            ">
-                        </div>
-                    </div>
-                    <label for="" class="block capitalize">Existing Photos</label>
-                    @foreach ($unit->pics as $pic)
-                        <div class="flex flex-row mb-3">
-                            <img src="{{ asset($pic->filename) }}" alt="" style="max-width: 150px;">
-                            <div class="md:ml-5">
-                                <label for="existing_pics_{{ $pic->id }}_order">Order</label>
-                                <input type="text" id="existing_pics_{{ $pic->id }}_order" name="existing_pics[{{ $pic->id }}][order]" value="{{$pic->order}}" class="shadow appearance-one border border-ccc mb-2 rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline">
-                            </div>
-                            <div class="md:ml-5">
-                                <label for="existing_pics_{{ $pic->id }}_alt">Alt Text</label>
-                                <input type="text" id="existing_pics_{{ $pic->id }}_alt" name="existing_pics[{{ $pic->id }}][alt]" value="{{$pic->alt}}" class="shadow appearance-one border border-ccc mb-2 rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline">
-                            </div>
-                            <div class="md:ml-5">
-                                <label for="existing_pics_{{ $pic->id }}_description">Description</label>
-                                <input type="text" id="existing_pics_{{ $pic->id }}_description" name="existing_pics[{{ $pic->id }}][description]" value="{{$pic->description}}" class="shadow appearance-one border border-ccc mb-2 rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline">
-                            </div>
-                            <div class="md:ml-5">
-                                [X]
-                            </div>
-                        </div>
-                    @endforeach --}}
                 </div>
   
 

@@ -10,6 +10,7 @@
                             <th class="py-2 px-4">Traveler Phone</th>
                             <th class="py-2 px-4">Traveler Email</th>
                             <th class="py-2 px-4">Dates</th>
+                            <th class="py-2 px-4"></th>
                         </thead>
                         <tbody>
                             @foreach ($reservations as $reservation)
@@ -19,6 +20,18 @@
                                     <td class="py-2 px-4">{{ $reservation->traveler->phone }}</td>
                                     <td class="py-2 px-4">{{ $reservation->traveler->email }}</td>
                                     <td class="py-2 px-4">{{ $reservation->start_date }} - {{ $reservation->end_date }}</td>
+                                    <td class="py-2 px-4">
+                                        <a href="{{ route('admin.reservations.edit', $reservation) }}" class="text-white bg-blue-600 hover:bg-blue-800 p-2 pr-1 mr-2 rounded-sm">
+                                            <i class="fa-solid fa-pen-to-square"></i>
+                                        </a>
+                                        <form action="{{ route('admin.reservations.destroy', $reservation) }}" method="post" class="inline" onsubmit="return confirm('Are you sure?')">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button class="text-white bg-red-600 hover:bg-red-800 px-2 py-1 rounded-sm">
+                                                <i class="fa-solid fa-trash-can"></i>
+                                            </button>
+                                        </form>
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>
