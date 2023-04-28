@@ -1,5 +1,6 @@
 <?php
 
+use App\Services\BarefootService;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RateController;
 use App\Http\Controllers\TaskController;
@@ -56,6 +57,11 @@ Route::middleware(['auth'])->group(function(){
             Route::get('/', function(){
                 return view('admin.dashboard');
             })->name('dashboard');
+
+            Route::get('/test', function(BarefootService $barefootService){
+                $barefootService->importProperties();
+            });
+
             Route::resource('neighborhoods', NeighborhoodController::class);
             Route::resource('units', UnitController::class);
             Route::resource('users', UserController::class);

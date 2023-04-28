@@ -18,7 +18,7 @@
                                 <tbody>
                                     @foreach ($units as $unit)
                                         <tr>
-                                            <td class="py-2 px-4"><img src="{{ asset($unit->pics->first()->filename) }}" alt="{{ $unit->pics->first()->alt ? 'Picture of ' . $unit->name : '' }}" width="90"></td>
+                                            <td class="py-2 px-4"><img src="{{ $unit->pics->count() > 0 ? asset($unit->pics->first()->filename) : '' }}" alt="{{ @$unit->pics->first()->alt ? 'Picture of ' . $unit->name : '' }}" width="90"></td>
                                             <td class="py-2 px-4">
                                                 <a href="{{ route('admin.units.show', $unit->slug) }}" class="underline text-blue-400">{{ $unit->name }}</a>
                                             </td>
