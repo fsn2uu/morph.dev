@@ -1,4 +1,4 @@
-<form action="{{ $verb == 'Update' ? route('admin.gateway.persons.update', $user) : route('admin.gateway.persons.create') }}" method="POST">
+<form action="{{ $verb == 'Update' ? route('admin.settings.gateway.persons.update', $person->id) : route('admin.settings.gateway.persons.create') }}" method="POST">
     @csrf
     @method('PATCH')
     <div>

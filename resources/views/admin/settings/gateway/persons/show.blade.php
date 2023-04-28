@@ -12,7 +12,7 @@
         <div class="bg-white rounded-lg shadow p-6 mb-10">
             @if ($person->status != 'verified')
                 @if ($person->verification->details_code == 'failed_keyed_identity')
-                    <p class="text-center">There was a problem verifying your identity.  Please <a href="{{ route('admin.gateway.persons.edit', $user) }}" class="text-blue-400 underline">edit your information</a> and re-submit.</p>                
+                    <p class="text-center">There was a problem verifying your identity.  Please <a href="{{ route('admin.settings.gateway.persons.edit', $person->id) }}" class="text-blue-400 underline">edit your information</a> and re-submit.</p>                
                 @else
                     <p class="text-center">There are requirements from the payment processor that must be satisfied to verify this user:</p>
                     <ul>

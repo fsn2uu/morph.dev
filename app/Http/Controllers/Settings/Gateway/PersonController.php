@@ -42,9 +42,10 @@ class PersonController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(User $user, StripePersons $stripePersons)
+    public function show($person_id, StripePersons $stripePersons)
     {
-        $person = $stripePersons->retrieve($user->stripe_id);
+        $person = $stripePersons->retrieve($person_id);
+        $user = User::where('stripe_id', $person_id)->first();
 
         return view('admin.settings.gateway.persons.show')
             ->withPerson($person)
@@ -54,9 +55,10 @@ class PersonController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(User $user, StripePersons $stripePersons)
+    public function edit($person_id, StripePersons $stripePersons)
     {
-        $person = $stripePersons->retrieve($user->stripe_id);
+        $person = $stripePersons->retrieve($person_id);
+        $user = User::where('stripe_id', $person_id)->first();
 
         return view('admin.settings.gateway.persons.edit')
             ->withPerson($person)
@@ -66,7 +68,7 @@ class PersonController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(User $user, Request $request, StripePersons $stripePersons)
+    public function update($person_id, Request $request, StripePersons $stripePersons)
     {
         $validator = Validator::make($request->all(), [
             'first_name' => 'required',
@@ -83,11 +85,11 @@ class PersonController extends Controller
             return redirect()->back()->withErrors($validator);
         }
 
-        $request->merge(['person_id' => $user->stripe_id]);
+        $request->merge(['person_id' => $person_id]);
         
         $person = $stripePersons->update($request);
 
-        return redirect()->route('admin.gateway.persons.edit', $user);
+        return redirect()->route('admin.settings.gateway.persons.edit', $person->id);
     }
 
     /**

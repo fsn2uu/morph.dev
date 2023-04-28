@@ -3,7 +3,7 @@ namespace App\Services;
 
 use App\Models\User;
 use Stripe\StripeClient;
-use Illuminate\Http\Client\Request;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class StripePersons
