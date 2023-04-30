@@ -21,7 +21,7 @@ class NeighborhoodController extends Controller
      */
     public function index()
     {
-        return view('admin.neighborhoods.index', ['neighborhoods' => Neighborhood::paginate(20)]);
+        return view('admin.neighborhoods.index', ['neighborhoods' => Neighborhood::paginate(18)]);
     }
 
     /**
@@ -62,7 +62,7 @@ class NeighborhoodController extends Controller
 
         if($request->has('amenities'))
         {
-            $neighborhood->amenities()->syncWithPivotValues($request->amenities, ['neighborhood_id']);
+            $neighborhood->amenities()->syncWithPivotValues($request->amenities, ['neighborhood_id' => $neighborhood->id]);
         }
 
         if($request->has('pics'))

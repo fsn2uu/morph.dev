@@ -8696,6 +8696,9 @@ select {
 .h-full {
   height: 100%;
 }
+.h-48 {
+  height: 12rem;
+}
 .min-h-\[60vh\] {
   min-height: 60vh;
 }
@@ -9111,6 +9114,10 @@ select {
 }
 .fill-gold {
   fill: #FFC200;
+}
+.object-cover {
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 .p-1 {
   padding: 0.25rem;
@@ -9673,6 +9680,10 @@ select {
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
   
+  .hover\:underline:hover {
+  text-decoration-line: underline;
+}
+  
   .hover\:opacity-100:hover {
   opacity: 1;
 }
@@ -10106,6 +10117,10 @@ select {
 
   .lg\:grid-cols-8 {
     grid-template-columns: repeat(8, minmax(0, 1fr));
+  }
+
+  .lg\:grid-cols-4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 
   .lg\:px-8 {

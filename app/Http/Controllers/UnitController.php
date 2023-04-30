@@ -26,7 +26,7 @@ class UnitController extends Controller
         $neighborhood = $request->neighborhood ?? null;
         $amenities = $request->amenities ?? null;
         
-        $units = Unit::search($start_date, $end_date, $beds, $baths, $sleeps, $amenities)->paginate(20);
+        $units = Unit::search($start_date, $end_date, $beds, $baths, $sleeps, $amenities)->paginate(18);
 
         return view('admin.units.index', ['units' => $units]);
     }
