@@ -24,7 +24,10 @@ class Unit extends Model
 
         Unit::creating(function($model){
             $model->slug = Str::of($model->name)->slug('-');
-            $model->company_id = Auth::user()->company_id;
+            if(!property_exists($model, 'company_id'))
+            {
+                $model->company_id = Auth::user()->company_id;
+            }
 
             $stripe = new \Stripe\StripeClient(
                 env('STRIPE_SECRET')

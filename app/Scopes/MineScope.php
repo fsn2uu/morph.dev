@@ -11,6 +11,8 @@ class MineScope implements Scope
 {
     public function apply(Builder $builder, Model $model)
     {
-        return $builder->where('company_id', Auth::user()->company_id);
+        if (!$model->hasGlobalScope('mine') && empty($model->company_id)) {
+            $builder->where('company_id', Auth::user()->company_id);
+        }
     }
 }
