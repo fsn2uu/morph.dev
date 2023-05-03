@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Rate;
 use App\Models\Unit;
-use App\Models\RateClass;
 use App\Models\RateTable;
 use App\Models\Neighborhood;
 use Illuminate\Http\Request;
@@ -19,14 +18,9 @@ class RateController extends Controller
      */
     public function index()
     {
-        $rate_tables = RateTable::all();
-
-        $rate_classes = RateClass::all();
-
         return view('admin.rates.index', 
             [
-                'rate_tables' => $rate_tables,
-                'rate_classes' => $rate_classes,
+                'rate_tables' => RateTable::all(),
             ]
         );
     }
@@ -40,12 +34,10 @@ class RateController extends Controller
     {
         $neighborhoods = Neighborhood::all()->toJson();
         $units = Unit::all()->toJson();
-        $rate_classes = RateClass::all()->toJson();
 
         return view("admin.rates.create")
             ->withNeighborhoods($neighborhoods)
-            ->withUnits($units)
-            ->withRateClasses($rate_classes);
+            ->withUnits($units);
     }
 
     /**
@@ -56,22 +48,11 @@ class RateController extends Controller
      */
     public function store(Request $request)
     {
-        //need to create the rate class if it doesn't exist
-        if($request->has('rate_class_id') && ctype_alpha($request->rate_class_id))
-        {
-            $rate_class = RateClass::create([
-                'name' => $request->rate_class_id,
-            ]);
-
-            $request->merge(['rate_class_id' => $rate_class->id]);
-        }
-
         $rate_table = RateTable::create([
             'name' => $request->name,
             'company_id' => Auth::user()->company->id,
             'neighborhood_id' => $request->neighborhood_id ?? null,
             'unit_id' => $request->unit_id ?? null,
-            'rate_class_id' => $request->rate_class_id ?? null,
         ]);
 
         if($request->has('rates'))

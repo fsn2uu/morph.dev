@@ -13,7 +13,6 @@ use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\GatewayController;
 use App\Http\Controllers\SpecialController;
 use App\Http\Controllers\TravelerController;
-use App\Http\Controllers\RateClassController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\NeighborhoodController;
 use App\Http\Controllers\Settings\Gateway\BankController;
@@ -77,7 +76,6 @@ Route::middleware(['auth'])->group(function(){
             Route::resource('travelers', TravelerController::class);
             Route::resource('reservations', ReservationController::class);
             Route::resource('rates', RateController::class);
-            Route::resource('rate_classes', RateClassController::class);
             Route::resource('specials', SpecialController::class);
             Route::resource('tasks', TaskController::class);
             Route::resource('amenities', AmenityController::class);

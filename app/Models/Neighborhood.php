@@ -71,9 +71,4 @@ class Neighborhood extends Model
     {
         return $this->belongsToMany(Amenity::class);
     }
-
-    public function rate_class()
-    {
-        return $this->hasOne(RateClass::class);
-    }
 }
