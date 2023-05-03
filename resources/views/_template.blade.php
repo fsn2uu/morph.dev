@@ -7,6 +7,7 @@
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">
         <title>Document</title>
         @stack('head')
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     </head>
     <body class="bg-[#f2f2f2]" id="app">
         <div class="bg-gray-100 pb-1 border-b-2 border-transparent bg-gradient-to-r from-yellow-300 to-yellow-600 bg-repeat-x bg-bottom bg-contain">
@@ -49,5 +50,22 @@
         <img src="{{ asset('assets/pexels-ruslan-konev-7011768.jpeg') }}" alt="" class="inline float-right -z-1 w-2/3"> --}}
     </body>
     <script src="{{ mix('js/app.js') }}" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     @stack('scripts')
+    <script>
+        const toasts = {!! json_encode(session()->get('toasts')) !!}
+        if(toasts)
+        {
+            toasts.forEach(function(toast) {
+                Toastify({
+                    text: toast.message,
+                    duration: toast.duration || 5000,
+                    gravity: toast.position || "top",
+                    backgroundColor: toast.backgroundColor || "#333",
+                    close: toast.close || false,
+                    stopOnFocus: toast.stopOnFocus || false,
+                }).showToast();
+            });
+        }
+    </script>
 </html>

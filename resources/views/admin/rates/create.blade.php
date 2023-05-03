@@ -34,6 +34,7 @@
                 <option value="Company">Company</option>
                 <option value="Neighborhood">Neighborhood</option>
                 <option value="Unit">Unit</option>
+                <option value="Rate Class">Rate Class</option>
             </select>
             
             
@@ -135,6 +136,7 @@
 
         const units = {!! $units !!}
         const neighborhoods = {!! $neighborhoods !!}
+        const rate_classes = {!! $rateClasses !!}
         const attach_to = document.getElementById('attach_to')
         attach_to.addEventListener('change', function(){
             if(this.value === 'Company')
@@ -147,12 +149,22 @@
                 {
                     document.getElementById('neighborhoods_wrapper').remove()
                 }
+                if(document.contains(document.getElementById('new_rate_class_wrapper')))
+                {
+                    document.getElementById('rate_class_wrapper').remove()
+                    document.getElementById('new_rate_class_wrapper').remove()
+                }
             }
             else if(this.value === 'Neighborhood')
             {
                 if(document.contains(document.getElementById('units_wrapper')))
                 {
                     document.getElementById('units_wrapper').remove()
+                }
+                if(document.contains(document.getElementById('new_rate_class_wrapper')))
+                {
+                    document.getElementById('rate_class_wrapper').remove()
+                    document.getElementById('new_rate_class_wrapper').remove()
                 }
                 const neighborhoods_wrapper = document.createElement('div')
                 neighborhoods_wrapper.setAttribute('id', 'neighborhoods_wrapper')
@@ -178,13 +190,18 @@
                 {
                     document.getElementById('neighborhoods_wrapper').remove()
                 }
+                if(document.contains(document.getElementById('new_rate_class_wrapper')))
+                {
+                    document.getElementById('rate_class_wrapper').remove()
+                    document.getElementById('new_rate_class_wrapper').remove()
+                }
                 const units_wrapper = document.createElement('div')
                 units_wrapper.setAttribute('id', 'units_wrapper')
                 const units_label = document.createElement('label')
                 units_label.setAttribute('class', 'block')
                 units_label.innerHTML = 'Select a Unit'
                 const units_selector = document.createElement('select')
-                units_selector.setAttribute('name', 'neighborhood_id')
+                units_selector.setAttribute('name', 'unit_id')
                 units_selector.setAttribute('class', 'shadow appearance-none border border-[#ccc] mb-2 rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline')
                 units_selector.appendChild(document.createElement('option'))
                 units.forEach(element => {
@@ -196,6 +213,67 @@
                 units_wrapper.appendChild(units_label).appendChild(units_selector)
                 attach_to.after(units_wrapper)
             }
+            else if(this.value === 'Rate Class')
+            {
+                if(document.contains(document.getElementById('neighborhoods_wrapper')))
+                {
+                    document.getElementById('neighborhoods_wrapper').remove()
+                }
+                if(document.contains(document.getElementById('units_wrapper')))
+                {
+                    document.getElementById('units_wrapper').remove()
+                }
+                if(document.contains(document.getElementById('new_rate_class_wrapper')) && document.getElementById('rate_class_id').value != 'Create Rate Class')
+                {
+                    document.getElementById('new_rate_class_wrapper').remove()
+                }
+                const rate_class_wrapper = document.createElement('div')
+                rate_class_wrapper.setAttribute('id', 'rate_class_wrapper')
+                const rate_class_label = document.createElement('label')
+                rate_class_label.setAttribute('class', 'block')
+                rate_class_label.innerHTML = 'Select a Rate Class'
+                const rate_class_selector = document.createElement('select')
+                rate_class_selector.setAttribute('name', 'rate_class_id')
+                rate_class_selector.setAttribute('id', 'rate_class_id')
+                rate_class_selector.setAttribute('class', 'shadow appearance-none border border-[#ccc] mb-2 rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline')
+                rate_class_selector.appendChild(document.createElement('option'))
+                rate_classes.forEach(element => {
+                    let opt = document.createElement('option')
+                    opt.setAttribute('value', element.id)
+                    opt.innerHTML = element.name
+                    rate_class_selector.appendChild(opt)
+                });
+                let createOpt = document.createElement('option')
+                createOpt.setAttribute('value', 'Create Rate Class')
+                createOpt.innerHTML = 'Create Rate Class'
+                rate_class_selector.appendChild(createOpt)
+                rate_class_wrapper.appendChild(rate_class_label).appendChild(rate_class_selector)
+                attach_to.after(rate_class_wrapper)
+            }
+            document.getElementById('rate_class_id').addEventListener('change', function(e){
+                e.preventDefault()
+                if(document.getElementById('rate_class_id').value == 'Create Rate Class')
+                {
+                    const new_rate_class_wrapper = document.createElement('div')
+                    new_rate_class_wrapper.setAttribute('id', 'new_rate_class_wrapper')
+                    const new_rate_class_label = document.createElement('label')
+                    new_rate_class_label.setAttribute('class', 'block')
+                    new_rate_class_label.setAttribute('for', 'new_rate_class_id')
+                    new_rate_class_label.innerHTML = 'New Rate Class Name'
+                    new_rate_class_wrapper.appendChild(new_rate_class_label)
+                    const new_rate_class_input = document.createElement('input')
+                    new_rate_class_input.setAttribute('type', 'text')
+                    new_rate_class_input.setAttribute('name', 'new_rate_class_id')
+                    new_rate_class_input.setAttribute('id', 'new_rate_class_id')
+                    new_rate_class_input.setAttribute('class', 'shadow appearance-none border border-[#ccc] mb-2 rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline')
+                    new_rate_class_wrapper.appendChild(new_rate_class_input)
+                    document.getElementById('rate_class_id').after(new_rate_class_wrapper)
+                }
+                else if(document.contains(document.getElementById('new_rate_class_wrapper')))
+                {
+                    document.getElementById('new_rate_class_wrapper').remove()
+                }
+            })
         })
     </script>
     

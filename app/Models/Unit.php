@@ -116,6 +116,8 @@ class Unit extends Model
         return $query;
     }
 
-
-
+    public function rate_class()
+    {
+        return $this->hasOne(RateClass::class);
+    }
 }

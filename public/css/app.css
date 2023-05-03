@@ -8639,6 +8639,12 @@ select {
 .mt-8 {
   margin-top: 2rem;
 }
+.mb-1 {
+  margin-bottom: 0.25rem;
+}
+.mr-auto {
+  margin-right: auto;
+}
 .block {
   display: block;
 }
