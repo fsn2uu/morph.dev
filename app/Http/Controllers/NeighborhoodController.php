@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pic;
+use App\Models\Unit;
 use App\Models\Amenity;
 use App\Models\Neighborhood;
 use Illuminate\Http\Request;
@@ -189,6 +190,36 @@ class NeighborhoodController extends Controller
         }
 
         return redirect()->route('admin.neighborhoods.show', $neighborhood->slug);
+    }
+
+    public function massAssignGet(Neighborhood $neighborhood)
+    {
+        $units = Unit::orderBy('name')->get();
+
+        return view('admin.neighborhoods.mass')
+            ->withUnits($units)
+            ->withNeighborhood($neighborhood);
+    }
+
+    public function massAssignPost(Neighborhood $neighborhood, Request $request)
+    {
+        foreach($request->links as $link)
+        {
+            Unit::where('id', $link)->update(['neighborhood_id' => $neighborhood->id]);
+        }
+
+        if(sizeof($request->links) > 0)
+        {
+            $message = sizeof($request->links)." units linked to ".$neighborhood->name;
+            session()->flash('toasts', [
+                [
+                    'title' => '',
+                    'message' => $message,
+                ]
+            ]);
+        }
+
+        return redirect()->route('admin.neighborhoods.index');
     }
 
     /**

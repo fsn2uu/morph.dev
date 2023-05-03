@@ -9,7 +9,8 @@
                     <p class="text-sm mt-2">Status: {{ ucwords($neighborhood->status) }}</p>
                     <p class="text-sm text-gray-600">Last Updated: {{ \Carbon\Carbon::parse($neighborhood->updated_at)->format('Y-m-d') }}</p>
                     <div class="mt-4 flex justify-end">
-                        <a href="{{ route('admin.neighborhoods.edit', $neighborhood->slug) }}" class="text-white bg-blue-600 hover:bg-blue-800 px-3 py-2 rounded-sm">
+                        <a href="{{ route('admin.neighborhoods.massAssign', $neighborhood) }}" class="text-white bg-green-600 hover:bg-green-800 px-3 py-2 rounded-sm"><i class="fa-solid fa-network-wired"></i></a>
+                        <a href="{{ route('admin.neighborhoods.edit', $neighborhood->slug) }}" class="text-white bg-blue-600 hover:bg-blue-800 px-3 py-2 rounded-sm ml-2">
                             <i class="fa-solid fa-pen-to-square"></i>
                         </a>
                         <form action="{{ route('admin.neighborhoods.destroy', $neighborhood->slug) }}" method="post" class="ml-2 inline" onsubmit="return confirm('Are you sure?')">

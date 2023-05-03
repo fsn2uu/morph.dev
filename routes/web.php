@@ -68,6 +68,10 @@ Route::middleware(['auth'])->group(function(){
             });
 
             Route::resource('neighborhoods', NeighborhoodController::class);
+            Route::controller(NeighborhoodController::class)->group(function () {
+                Route::get('/neighborhoods/{neighborhood}/mass-assign-units', 'massAssignGet')->name('neighborhoods.massAssign');
+                Route::post('/neighborhoods/{neighborhood}/mass-assign-units', 'massAssignPost')->name('neighborhoods.massAssignPost');
+            });
             Route::resource('units', UnitController::class);
             Route::resource('users', UserController::class);
             Route::resource('travelers', TravelerController::class);
