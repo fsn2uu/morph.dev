@@ -87,6 +87,9 @@ Route::middleware(['auth'])->group(function(){
                     Route::post('company', 'update')->name('company');
                 });
                 Route::prefix('payment-gateway')->name('gateway.')->group(function(){
+                    Route::get('/', function(){
+                        return view('admin.settings.gateway.index');
+                    })->name('index');
                     Route::resource('banks', BankController::class);
                     Route::resource('persons', PersonController::class);
                     Route::resource('transfers', TransferController::class)->only(['index', 'show']);

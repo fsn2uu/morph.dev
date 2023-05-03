@@ -36,6 +36,7 @@
                     <x-slot name="content">
                         <x-dropdown-link>{{ __('Website Settings') }}</x-dropdown-link>
                         <x-dropdown-link :href="route('admin.settings.company')">{{ __('Company Settings') }}</x-dropdown-link>
+                        <x-dropdown-link :href="route('admin.settings.gateway.index')">{{ __('Gateway Settings') }}</x-dropdown-link>
                         <x-dropdown-link :href="route('admin.users.edit', Auth::user())">{{ __('My Profile') }}</x-dropdown-link>
                         <x-dropdown-link :href="route('admin.users.index')">{{ __('Users') }}</x-dropdown-link>
                         <!-- Authentication -->
@@ -90,6 +91,7 @@
                     <x-slot name="content">
                         <x-dropdown-link>{{ __('Website Settings') }}</x-dropdown-link>
                         <x-dropdown-link :href="route('admin.settings.company')">{{ __('Company Settings') }}</x-dropdown-link>
+                        <x-dropdown-link :href="route('admin.settings.gateway.index')">{{ __('Gateway Settings') }}</x-dropdown-link>
                         <x-dropdown-link :href="route('admin.users.edit', Auth::user())">{{ __('My Profile') }}</x-dropdown-link>
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">

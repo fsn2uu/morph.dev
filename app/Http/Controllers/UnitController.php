@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Pic;
 use App\Models\Unit;
+use App\Models\RateClass;
+use App\Models\RateTable;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -38,7 +40,9 @@ class UnitController extends Controller
      */
     public function create()
     {
-        return view('admin.units.create');
+        return view('admin.units.create', [
+            'rate_tables' => RateTable::all(),
+        ]);
     }
 
     /**

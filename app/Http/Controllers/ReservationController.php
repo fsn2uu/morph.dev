@@ -99,6 +99,8 @@ class ReservationController extends Controller
         //we'll get the rate regardless of the rental type so that we can calculate how much is lost by anything other than travelers
         if($unit->rate_table):
             $table = $unit->rate_table;
+        elseif($unit->rate_class->rate_table):
+            $table = $unit->rate_class->table;
         elseif($unit->neighborhood->rate_table):
             $table = $unit->neighborhood->rate_table;
         elseif(Auth::user()->company->rate_table):
