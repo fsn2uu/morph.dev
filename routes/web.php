@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Unit;
 use App\Services\BarefootService;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RateController;
@@ -56,7 +57,10 @@ Route::middleware(['auth'])->group(function(){
     Route::name('admin.')->group(function(){
         Route::prefix('admin')->group(function(){
             Route::get('/', function(){
-                return view('admin.dashboard');
+                $units = Unit::reservation(\Carbon\Carbon::now(), \Carbon\Carbon::now()->addDays(14))->get();
+
+                return view('admin.dashboard')
+                    ->withUnits($units);
             })->name('dashboard');
 
             Route::get('/test', function(BarefootService $barefootService){

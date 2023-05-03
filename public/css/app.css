@@ -8750,6 +8750,9 @@ select {
 .w-full {
   width: 100%;
 }
+.min-w-full {
+  min-width: 100%;
+}
 .max-w-6xl {
   max-width: 72rem;
 }
@@ -8869,6 +8872,9 @@ select {
 }
 .gap-6 {
   gap: 1.5rem;
+}
+.gap-10 {
+  gap: 2.5rem;
 }
 .space-x-6 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-x-reverse: 0;
@@ -9073,6 +9079,14 @@ select {
 .bg-white {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+}
+.bg-green-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(72 187 120 / var(--tw-bg-opacity));
+}
+.bg-purple-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(159 122 234 / var(--tw-bg-opacity));
 }
 .bg-opacity-50 {
   --tw-bg-opacity: 0.5;
@@ -9327,6 +9341,9 @@ select {
 }
 .leading-tight {
   line-height: 1.25;
+}
+.leading-4 {
+  line-height: 1rem;
 }
 .tracking-wider {
   letter-spacing: 0.05em;

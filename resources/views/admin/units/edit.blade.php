@@ -237,7 +237,7 @@
 
 
                 <div class="tab-content pt-5 hidden">
-                    <p>Here is the content for the Reservations tab.</p>
+                    @include('admin.reservations._parts.table')
                 </div>
                 <div class="tab-content pt-5 hidden">
                     <p>Here is the content for the Specials tab.</p>

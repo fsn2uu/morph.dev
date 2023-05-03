@@ -21,7 +21,7 @@ class NeighborhoodController extends Controller
      */
     public function index()
     {
-        return view('admin.neighborhoods.index', ['neighborhoods' => Neighborhood::paginate(18)]);
+        return view('admin.neighborhoods.index', ['neighborhoods' => Neighborhood::paginate(20)]);
     }
 
     /**

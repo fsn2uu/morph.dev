@@ -26,7 +26,7 @@ class UnitController extends Controller
         $neighborhood = $request->neighborhood ?? null;
         $amenities = $request->amenities ?? null;
         
-        $units = Unit::search($start_date, $end_date, $beds, $baths, $sleeps, $amenities)->paginate(18);
+        $units = Unit::search($start_date, $end_date, $beds, $baths, $sleeps, $amenities)->paginate(20);
 
         return view('admin.units.index', ['units' => $units]);
     }
@@ -116,10 +116,13 @@ class UnitController extends Controller
     {
         $unit = Unit::where('slug', $slug)->firstOrFail();
 
+        $reservations = $unit->reservations;
+
         if($unit->company_id == Auth::user()->company_id)
         {
             return view('admin.units.edit')
-                ->withUnit($unit);
+                ->withUnit($unit)
+                ->withReservations($reservations);
         }
         else
         {

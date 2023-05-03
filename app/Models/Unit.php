@@ -84,7 +84,17 @@ class Unit extends Model
     //     endif;
     // }
 
-    public function scopeSearch($query, $start_date, $end_date, $beds, $baths, $sleeps, $amenities)
+    public function scopeReservation($query, $start_date = null, $end_date = null)
+    {
+        if ($start_date && $end_date) {
+            $query->whereRelation('reservations', function ($subquery) use ($start_date, $end_date) {
+                $subquery->where('start_date', '<=', $end_date)
+                        ->where('end_date', '>=', $start_date);
+            });
+        }
+    }
+
+    public function scopeSearch($query, $start_date = null, $end_date = null, $beds = null, $baths = null, $sleeps = null, $amenities = null)
     {
         if ($start_date && $end_date) {
             $query->whereDoesntHave('reservations', function ($subquery) use ($start_date, $end_date) {
