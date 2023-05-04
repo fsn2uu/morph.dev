@@ -9112,6 +9112,10 @@ select {
   --tw-bg-opacity: 1;
   background-color: rgb(159 122 234 / var(--tw-bg-opacity));
 }
+.bg-red-200 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(254 215 215 / var(--tw-bg-opacity));
+}
 .bg-opacity-50 {
   --tw-bg-opacity: 0.5;
 }

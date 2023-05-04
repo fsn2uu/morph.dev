@@ -105,10 +105,63 @@
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/themes/smoothness/jquery-ui.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
 
+    @php
+        $reservedDates = ['2023-05-24', '2023-05-26'];
+    @endphp
+
     <script>
-        $(function(){
-            $('.date').datepicker()
-        })
+        $(document).ready(function() {
+            // Retrieve the minimum selectable date for arrival_date (today + 3 days)
+            var minArrivalDate = new Date();
+            minArrivalDate.setDate(minArrivalDate.getDate() + 3);
+
+            // Fetch the reserved dates for the unit
+            var reservedDates = {!! json_encode($reservedDates) !!};
+
+            // Initialize the datepicker for arrival_date
+            $('#start_date').datepicker({
+                minDate: minArrivalDate,
+                beforeShowDay: function(date) {
+                var dateString = $.datepicker.formatDate('yy-mm-dd', date);
+
+                // Check if the date is reserved
+                if(reservedDates)
+                {
+                    var isReserved = reservedDates.includes(dateString);
+                }
+
+                return [!isReserved, isReserved ? 'bg-red-200' : ''];
+                },
+                onSelect: function(selectedDate) {
+                // Retrieve the selected arrival_date
+                var arrivalDate = $(this).datepicker('getDate');
+
+                // Calculate the minimum selectable date for departure_date (arrival_date + 3 days)
+                var minDepartureDate = new Date(arrivalDate);
+                minDepartureDate.setDate(minDepartureDate.getDate() + 3);
+
+                // Set the minimum selectable date for departure_date
+                $('#end_date').datepicker('option', 'minDate', minDepartureDate);
+                }
+            });
+
+            // Initialize the datepicker for departure_date
+            $('#end_date').datepicker({
+                beforeShowDay: function(date) {
+                var dateString = $.datepicker.formatDate('yy-mm-dd', date);
+
+                // Check if the date is reserved
+                if(reservedDates)
+                {
+                    var isReserved = reservedDates.includes(dateString);
+                }
+
+                return [!isReserved, isReserved ? 'bg-red-200' : ''];
+                }
+            });
+            });
+
+
     </script>
     
 @endpush
