@@ -8910,6 +8910,16 @@ select {
   margin-top: calc(1.5rem * calc(1 - var(--tw-space-y-reverse)));
   margin-bottom: calc(1.5rem * var(--tw-space-y-reverse));
 }
+.space-x-4 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-x-reverse: 0;
+  margin-right: calc(1rem * var(--tw-space-x-reverse));
+  margin-left: calc(1rem * calc(1 - var(--tw-space-x-reverse)));
+}
+.space-y-4 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(1rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(1rem * var(--tw-space-y-reverse));
+}
 .self-end {
   align-self: flex-end;
 }
@@ -9770,6 +9780,11 @@ select {
   
   .focus\:border-transparent:focus {
   border-color: transparent;
+}
+  
+  .focus\:border-indigo-500:focus {
+  --tw-border-opacity: 1;
+  border-color: rgb(102 126 234 / var(--tw-border-opacity));
 }
   
   .focus\:bg-gray-100:focus {

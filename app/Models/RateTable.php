@@ -36,11 +36,12 @@ class RateTable extends Model
 
     public function neighborhoods()
     {
-        return $this->belongsTo(Neighborhood::class);
+        return $this->belongsToMany(Neighborhood::class, 'neighborhood_rate_table');
     }
 
     public function units()
     {
-        return $this->belongsTo(Unit::class);
+        return $this->belongsToMany(Unit::class, 'unit_rate_table');
     }
+
 }

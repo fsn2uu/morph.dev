@@ -32,8 +32,8 @@ class RateController extends Controller
      */
     public function create()
     {
-        $neighborhoods = Neighborhood::all()->toJson();
-        $units = Unit::all()->toJson();
+        $neighborhoods = Neighborhood::all();
+        $units = Unit::all();
 
         return view("admin.rates.create")
             ->withNeighborhoods($neighborhoods)
@@ -48,23 +48,45 @@ class RateController extends Controller
      */
     public function store(Request $request)
     {
-        $rate_table = RateTable::create([
-            'name' => $request->name,
-            'company_id' => Auth::user()->company->id,
-            'neighborhood_id' => $request->neighborhood_id ?? null,
-            'unit_id' => $request->unit_id ?? null,
+        $validatedData = $request->validate([
+            'name' => 'required|string',
+            'titles' => 'required|array',
+            'start_dates' => 'required|array',
+            'end_dates' => 'required|array',
+            'amounts' => 'required|array',
         ]);
+    
+        $rateTable = RateTable::create([
+            'name' => $validatedData['name'],
+            'company_id' => Auth::user()->company->id,
+        ]);
+    
+        for ($i = 0; $i < count($validatedData['titles']); $i++) {
+            $rateTable->rates()->create([
+                'name' => $validatedData['titles'][$i],
+                'start_date' => $validatedData['start_dates'][$i],
+                'end_date' => $validatedData['end_dates'][$i],
+                'amount' => $validatedData['amounts'][$i],
+            ]);
+        }
 
-        if($request->has('rates'))
+        if($request->has('neighborhoods'))
         {
-            foreach ($request->rates as $key => $rate) {
-                Rate::create([
-                    'rate_table_id' => $rate_table->id,
-                    'name' => $rate['label'],
-                    'start_date' => \Carbon\Carbon::parse($rate['start_date'])->format('Y-m-d'),
-                    'end_date' => \Carbon\Carbon::parse($rate['end_date'])->format('Y-m-d'),
-                    'amount' => $rate['amount'],
-                ]);
+            foreach($request->neighborhoods as $neighborhood)
+            {
+                $neighborhood = Neighborhood::find($neighborhood);
+                $neighborhood->rateTable()->associate($rateTable);
+                $neighborhood->save();
+            }
+        }
+
+        if($request->has('units'))
+        {
+            foreach($request->units as $unit)
+            {
+                $unit = Unit::find($unit);
+                $unit->rateTable()->associate($rateTable);
+                $unit->save();
             }
         }
 
