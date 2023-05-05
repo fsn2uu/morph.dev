@@ -12,6 +12,7 @@
             <a href="{{ route('admin.units.index') }}" class="nav {{ Request::segment(2) == 'units' ? 'border-b-2 border-b-yellow-600 pb-2' : '' }}">Units</a>
             <a href="{{ route('admin.reservations.index') }}" class="nav {{ Request::segment(2) == 'reservations' ? 'border-b-2 border-b-yellow-600 pb-2' : '' }}">Reservations</a>
             <a href="{{ route('admin.rates.index') }}" class="nav {{ Request::segment(2) == 'rates' ? 'border-b-2 border-b-yellow-600 pb-2' : '' }}">Rates</a>
+            <a href="{{ route('admin.fees.index') }}" class="nav {{ Request::segment(2) == 'fees' ? 'border-b-2 border-b-yellow-600 pb-2' : '' }}">Fees</a>
             <a href="{{ route('admin.travelers.index') }}" class="nav {{ Request::segment(2) == 'travelers' ? 'border-b-2 border-b-yellow-600 pb-2' : '' }}">Travelers</a>
             <a href="{{ route('admin.specials.index') }}" class="nav {{ Request::segment(2) == 'specials' ? 'border-b-2 border-b-yellow-600 pb-2' : '' }}">Specials</a>
             <a href="{{ route('admin.tasks.index') }}" class="nav {{ Request::segment(2) == 'tasks' ? 'border-b-2 border-b-yellow-600 pb-2' : '' }}">Tasks</a>
@@ -67,6 +68,7 @@
             <a href="{{ route('admin.units.index') }}">Units</a>
             <a href="{{ route('admin.reservations.index') }}">Reservations</a>
             <a href="{{ route('admin.rates.index') }}">Rates</a>
+            <a href="{{ route('admin.fees.index') }}">Fees</a>
             <a href="{{ route('admin.travelers.index') }}">Travelers</a>
             <a href="{{ route('admin.specials.index') }}">Specials</a>
             <a href="{{ route('admin.tasks.index') }}">Tasks</a>

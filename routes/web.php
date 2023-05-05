@@ -3,6 +3,7 @@
 use App\Models\Unit;
 use App\Services\BarefootService;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\FeeController;
 use App\Http\Controllers\RateController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\UnitController;
@@ -76,6 +77,7 @@ Route::middleware(['auth'])->group(function(){
             Route::resource('travelers', TravelerController::class);
             Route::resource('reservations', ReservationController::class);
             Route::resource('rates', RateController::class);
+            Route::resource('fees', FeeController::class);
             Route::resource('specials', SpecialController::class);
             Route::resource('tasks', TaskController::class);
             Route::resource('amenities', AmenityController::class);

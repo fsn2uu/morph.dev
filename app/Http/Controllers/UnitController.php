@@ -27,8 +27,9 @@ class UnitController extends Controller
         $sleeps = $request->sleeps ?? null;
         $neighborhood = $request->neighborhood ?? null;
         $amenities = $request->amenities ?? null;
+        $id = $request->id ?? null;
         
-        $units = Unit::search($start_date, $end_date, $beds, $baths, $sleeps, $amenities)->paginate(20);
+        $units = Unit::search($start_date, $end_date, $beds, $baths, $sleeps, $amenities, $id)->paginate(20);
 
         return view('admin.units.index', ['units' => $units]);
     }

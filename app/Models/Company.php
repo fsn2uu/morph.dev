@@ -70,4 +70,9 @@ class Company extends Model
         return false;
     }
 
+    public function fees()
+    {
+        return $this->morphMany(Fee::class, 'feeable');
+    }
+
 }

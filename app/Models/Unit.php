@@ -75,7 +75,7 @@ class Unit extends Model
         }
     }
 
-    public function scopeSearch($query, $start_date = null, $end_date = null, $beds = null, $baths = null, $sleeps = null, $amenities = null)
+    public function scopeSearch($query, $start_date = null, $end_date = null, $beds = null, $baths = null, $sleeps = null, $amenities = null, $id=null)
     {
         if ($start_date && $end_date) {
             $query->whereDoesntHave('reservations', function ($subquery) use ($start_date, $end_date) {
@@ -95,6 +95,11 @@ class Unit extends Model
         if ($sleeps) {
             $query->where('sleeps', $sleeps);
         }
+
+        if($id)
+        {
+            $query->where('id', $id);
+        }
         
         if ($amenities) {
             foreach ($amenities as $amenity) {
@@ -106,4 +111,10 @@ class Unit extends Model
         
         return $query;
     }
+
+    public function fees()
+    {
+        return $this->morphMany(Fee::class, 'feeable');
+    }
+
 }

@@ -71,4 +71,9 @@ class Neighborhood extends Model
     {
         return $this->belongsToMany(Amenity::class);
     }
+
+    public function fees()
+    {
+        return $this->morphMany(Fee::class, 'feeable');
+    }
 }
