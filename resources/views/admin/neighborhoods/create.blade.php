@@ -19,6 +19,12 @@
                 @enderror
             </div>
             <div>
+                <input type="checkbox" id="create_from_ai" name="create_from_ai" value="1" class="mb-2">
+                <label for="create_from_ai" class="">
+                    Create description using AI
+                </label>
+            </div>
+            <div>
                 <label for="description" class="block">Description</label>
                 <textarea name="description" id="description" class="shadow appearance-none border border-[#ccc] mb-2 rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"></textarea>
                 @error('description')
@@ -51,3 +57,15 @@
     </section>
     
 @endsection
+
+@push('scripts')
+    <script>
+        const checkbox = document.getElementById('create_from_ai');
+        const descriptionText = document.getElementById('description_text');
+
+        checkbox.addEventListener('change', function() {
+            descriptionText.style.display = checkbox.checked ? 'block' : 'none';
+        });
+
+    </script>
+@endpush

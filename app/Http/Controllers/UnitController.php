@@ -77,6 +77,13 @@ class UnitController extends Controller
             $unit->slug = $request->slug;
         $unit->save();
 
+        session()->flash('toasts', [
+            [
+                'title' => '',
+                'message' => 'Unit Created',
+            ]
+        ]);
+
         if($request->create_from_ai)
         {
             dispatch(new CreateUnitContentWithAI($unit->id));
@@ -104,7 +111,7 @@ class UnitController extends Controller
             }
         }
 
-        return redirect()->route("admin.units.edit", $unit->slug);
+        return redirect()->route("admin.units.index");
     }
 
     protected function addressFieldsAreEmpty(Request $request)

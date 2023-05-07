@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Resources\NeighborhoodResource;
+use App\Jobs\CreateNeighborhoodContentWithAI;
 
 class NeighborhoodController extends Controller
 {
@@ -57,9 +58,20 @@ class NeighborhoodController extends Controller
             return back()->withErrors($validation->errors())->withInput();
         }
 
-        //dd($validation);
+        if($neighborhood = Neighborhood::create($request->except(['_token', 'pics', 'amenities'])))
+        {
+            session()->flash('toasts', [
+                [
+                    'title' => '',
+                    'message' => 'Neighborhood Created',
+                ]
+            ]);
+        }
 
-        $neighborhood = Neighborhood::create($request->except(['_token', 'pics', 'amenities']));
+        if($request->create_from_ai)
+        {
+            dispatch(new CreateNeighborhoodContentWithAI($neighborhood->id));
+        }
 
         if($request->has('amenities'))
         {
@@ -90,7 +102,7 @@ class NeighborhoodController extends Controller
             }
         }
 
-        return redirect()->route('admin.neighborhoods.show', $neighborhood->slug);
+        return redirect()->route('admin.neighborhoods.index');
     }
 
     /**
