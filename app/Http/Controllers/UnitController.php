@@ -9,7 +9,9 @@ use App\Models\RateTable;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Jobs\CreateUnitContentWithAI;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class UnitController extends Controller
 {
@@ -75,6 +77,11 @@ class UnitController extends Controller
             $unit->slug = $request->slug;
         $unit->save();
 
+        if($request->create_from_ai)
+        {
+            dispatch(new CreateUnitContentWithAI($unit->id));
+        }
+
         if($request->has('pics'))
         {
             foreach($request->pics as $pic)
@@ -98,6 +105,19 @@ class UnitController extends Controller
         }
 
         return redirect()->route("admin.units.edit", $unit->slug);
+    }
+
+    protected function addressFieldsAreEmpty(Request $request)
+    {
+        $addressFields = ['address', 'city', 'state', 'zip'];
+
+        foreach ($addressFields as $field) {
+            if (!empty($request->input($field))) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     /**
