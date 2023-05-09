@@ -125,10 +125,11 @@ class NeighborhoodController extends Controller
     public function edit($slug)
     {
         $neighborhood = Neighborhood::where('slug', $slug)->firstOrFail();
+        $units = Unit::where('neighborhood_id', $neighborhood->id)->paginate(9999);
 
         $amenities = Amenity::where('type', 'neighborhood')->get();
 
-        return view('admin.neighborhoods.edit', ['neighborhood' => $neighborhood, 'amenities' => $amenities]);
+        return view('admin.neighborhoods.edit', ['neighborhood' => $neighborhood, 'amenities' => $amenities, 'units' => $units]);
     }
 
     /**
