@@ -76,4 +76,9 @@ class Neighborhood extends Model
     {
         return $this->morphMany(Fee::class, 'feeable');
     }
+
+    public function spaces()
+    {
+        return $this->hasMany(Space::class);
+    }
 }
